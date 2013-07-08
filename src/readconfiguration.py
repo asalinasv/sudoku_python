@@ -4,12 +4,14 @@
 class ReadFile():
     config_file=''
 
-
     def __init__(self,config_file):
         self.config_file=config_file
 
-    """file_exist' method verifies that config file exist or not and raise an error it it does not exist"""
     def file_exist(self):
+        """"
+        file_exist' method verifies that config file exist or not and raise an error it it does not exist
+        """
+
         try:
             f=open(self.config_file,'r')
             f.read()
@@ -30,12 +32,7 @@ class ReadFile():
                                 
             f.close()
      
-
-    """read_config_file method read the config file to recover configruation values"""
-  
-
     def right_configuration_format(self):
-
         tag_name_setting=[]
         tag_name_values=[]
         file_name=[]
@@ -51,8 +48,7 @@ class ReadFile():
                 if file_name[1]=='xml':
                     tag_name_setting=self.read_xml_file()
         return tag_name_setting
-                    
-    
+                        
     def read_txt_file(self):
         f=open(self.config_file,'r')
         file_contain=''
@@ -64,6 +60,5 @@ class ReadFile():
 
         for i in range(0,len(file_contain)):
             file_tag_name+=str(file_contain[i])
-
  
         return file_tag_name
