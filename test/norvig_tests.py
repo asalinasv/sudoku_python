@@ -1,86 +1,15 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
-__author__="Oscar Tapia"
-__date__ ="$Jul 2, 2013 11:04:27 AM$"
-
 import unittest
 from readfiles import ReadFiles
 from norvigalgorithm import *
 import csv
 
-class TestReadFiles(unittest.TestCase):
+class TestNorvigAlgorithm(unittest.TestCase):
     def setUp(self):
-        self.txtfile = "juego.txt"
-        self.txtfile1 = "juego1.txt"
-        self.csvfile = "juego.csv"
-        self.readvalidtxt = ReadFiles("juego.txt")
-        self.readinvalidtxt = ReadFiles("juego1.txt")
-        self.readvalidcsv = ReadFiles("juego.csv")
-        self.readinvalidcsv = ReadFiles("juego1.csv")
-        self.invalidfile = ReadFiles("hola.png")
-
         self.stringtonorvig = '003020600900305001001806400008102900700000008006708200002609500800203009005010300'
         self.invalidstringtonorvig = '0030206009003050010018064000081029007000000080067082000026095008002030090050103001'
         self.hardpuzzle = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
         self.novalidpuzzle = '44....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
         self.norvig = NorvigAlgorithm()
-        #self.csvfile = 'juegosu.csv'
-        #self.presolution = 'presolution.txt'
-    def test_if_gettype_verifies_a_txt_file(self):
-        expected = "TXT File"
-        self.assertEqual(expected, self.readvalidtxt.gettype())
-
-    def test_if_gettype_verifies_a_csv_file(self):
-        expected = "CSV File"
-        self.assertEqual(expected, self.readvalidcsv.gettype())
-
-    def test_if_gettype_verifies_another_file_extension(self):
-        expected = "invalid extension"
-        self.assertEqual(expected, self.invalidfile.gettype())
-
-    def test_if_solver_is_able_to_read_a_txt_file(self):
-        f1 = open(self.txtfile,'r')
-        expected = f1.read()
-        self.assertEqual(expected, self.readvalidtxt.reading_txt())
-
-    def test_if_txt_has_a_matrix_of_9x9(self):
-        expected = 81
-        self.assertEqual(expected,self.readvalidtxt.validate_size_txt())
-
-    def test_if_alert_message_is_displayed_for_non_valid_dimentions_in_txt_file(self):
-        expected = "The dimensions inserted are invalid"
-        self.assertEqual(expected,self.readinvalidtxt.validate_size_txt())
-
-    def test_if_txt_has_values_from_0_to_9(self):
-        expected = True  # ??????
-        self.assertEqual(expected, self.readvalidtxt.validate_values_txt())
-
-    def test_if_alert_message_is_displayed_for_non_valid_values_in_txt_file(self):
-        expected = "The values from txt files are invalid"
-        self.assertEqual(expected,self.readinvalidtxt.validate_values_txt())
-
-    def test_if_solver_is_able_to_read_a_csv_file(self):
-        with open (self.csvfile,'rb') as csvfile:
-            expected = list(csv.reader(csvfile))
-        self.assertEqual(expected, self.readvalidcsv.reading_csv())
-
-    def test_if_csv_has_a_matrix_of_9x9(self):
-        expected = 81
-        self.assertEqual(expected,self.readvalidcsv.validate_size_csv())
-
-    def test_if_alert_message_is_displayed_for_non_valid_dimentions_in_csv_file(self):
-        expected = "The dimensions inserted are invalid"
-        self.assertEqual(expected,self.readinvalidcsv.validate_size_csv())
-
-    def test_if_csv_has_values_from_0_to_9(self):
-        expected = True
-        self.assertEqual(expected,self.readvalidcsv.validate_values_csv())
-
-    def test_if_alert_message_is_displayed_for_non_valid_values_in_csv_file(self):
-        expected = "The values from csv files are invalid"
-        self.assertEqual(expected,self.readinvalidcsv.validate_values_csv())
-
 
 ### ******* Unittest for Nornig's Algorithm *************
 
@@ -186,13 +115,6 @@ class TestReadFiles(unittest.TestCase):
     def test_if_near_squares_are_validated(self):
         expected = False
         self.assertEqual(expected,self.norvig.parse_grid(self.novalidpuzzle))
-#def test_if_txt_sudoku_is_solved_correctly(self):
-     #   f2 = open(self.presolution,'r')
-      #  expected = f2.read()
-       # f2.close()
-       # self.assertEqual(expected, self.readsolve.solved_sudoku_txt(self.txtfile))
 
 if __name__ == '__main__':
     unittest.main()
-
-
