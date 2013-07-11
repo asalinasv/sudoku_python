@@ -1,10 +1,9 @@
 # Configuration Class , retrieve file name and settings for configuration file
 # Author: Ana Salinas
 # Automation Class (Sudoku project) - 2013
-from readconfiguration import ReadFile
 
 class Configuration:
-    config_file_setting = ''
+   
     config =['Output_file','Default_alghoritm','Dificult_level']
     settings = {config[0]:'Txt', config[1]:'Norvig', config[2]:'Easier'}
 

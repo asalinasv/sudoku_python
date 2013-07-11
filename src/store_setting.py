@@ -1,14 +1,14 @@
 # StoreSetting Class , retrieve file name and settings for configuration file
 # Author: Ana Salinas
 # Automation Class (Sudoku project) - 2013
-from readconfiguration import ReadFile
+from readconfiguration import FileReader
 from configuration import Configuration
 
-class StoreSetting:
+class StorerSetting:
    
     def __init__(self, config_file, settings):
         self.configuration = Configuration(config_file, settings)
-        self.readfile = ReadFile(config_file)
+        self.readfile = FileReader(config_file)
 
     """'save_settings_config_file' method saves the settings values in the config file"""
 
@@ -29,4 +29,3 @@ class StoreSetting:
             f.write(self.read_setting_dic(self.configuration))
             f.close()
         return "File Created"
-    
