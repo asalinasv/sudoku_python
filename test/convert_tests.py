@@ -9,11 +9,6 @@ class TestConvert(unittest.TestCase):
         self.validcsv = "juego.csv"
         self.invalidcsv = "juego1.csv"
 
-#        self.solver_invalidtxt = Solver("juego1.txt")
-#        self.solver_invalidcsv = Solver("juego1.csv")
- #       self.solver_other = Solver("juego.png")
- #       self.resultpuzzle = '483921657967345821251876493548132976729564138136798245372689514814253769695417382'
-
 ### ******* Unittest for convert class *************
 
     def test_if_txt_file_is_converted_to_string(self):
@@ -40,6 +35,5 @@ class TestConvert(unittest.TestCase):
         expected = "Please insert a csv file with the correct dimensions"
         self.assertEqual(expected,self.convert.csv_file_to_string(self.invalidcsv))
    
-
 if __name__ == '__main__':
     unittest.main()

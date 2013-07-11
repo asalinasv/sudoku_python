@@ -130,28 +130,11 @@ class NorvigAlgorithm:
         return self.some(self.search(self.assign(values.copy(), s, d)) \
                         for d in values[s])
 
-    ################ Utilities ################
-
     def some(self,seq):
         "Return some element of seq that is true."
         for e in seq:
             if e: return e
         return False
-
-"""
-norvig = NorvigAlgorithm()
-grid1 = '003020600900305001001806400008102900700000008006708200002609500800203009005010300'
-grid2 = '44....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-grid3 = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5..1382'
-grid3 = '003020600090305001001806400008102900700000008006708200002609500800203009005010300'
-a1 = norvig.solve(grid3)
-a2 = norvig.parse_grid(grid3)
-
-#print norvig.cross('ABCDEFGHI','123456789')
-#print norvig.solve(grid2)
-norvig.display(a1)
-norvig.display(a2)
-"""
 
 
 

@@ -1,7 +1,5 @@
 import unittest
-from readfiles import ReadFiles
 from norvigalgorithm import *
-import csv
 
 class TestNorvigAlgorithm(unittest.TestCase):
     def setUp(self):
