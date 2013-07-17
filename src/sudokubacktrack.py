@@ -22,19 +22,19 @@ class Backtracking:
                             self.validate_row(self.matrix,value,r,c)  and \
                             self.validate_column(self.matrix,value,r,c):
                             self.matrix[r][c]=value
-                            print "MATRIX[%i][%i] = %i" % (r,c,value)
+                            #print "MATRIX[%i][%i] = %i" % (r,c,value)
                             value = 11 #the number 11 is assigned to end the loop
                         else:
-                            print "Exists a FALSE"
+                            #print "Exists a FALSE"
                             value += 1
                         #value+=1
                         if value == 10:
                             #'''if value equals to 10 means that wa unable o solve de sudoku line, must back to test with other number '''
                             #aqui aumentar codigo ojojojo no existe solucion
                             #print "the value is 10000000000000000"
-                            print "values ENVIADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOS"
+                            #print "values ENVIADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOS"
 
-                            print "row and column",r,c
+                            #print "row and column",r,c
 
                             #self.matrix,value,self.row_b,self.col_b
                             value, r, c = self.back_previous_solution(self.matrix, r, c)
@@ -46,7 +46,7 @@ class Backtracking:
             r+=1
             #print '\n'
 
-        print "****************************************************"
+        print "****************************************************RESULT"
         return self.matrix
 
     def back_previous_solution(self,matrix,row_b,column_b):
@@ -69,31 +69,31 @@ class Backtracking:
 
             if value >= 9 and self.col_b >= 0:
                 '''According to value and position of column a position and value are returned'''
-                print "the value is GREATER THAN 9"
+                #print "the value is GREATER THAN 9"
                 value,self.row_b,self.col_b = self.back_previous_solution(self.matrix, self.row_b, self.col_b)
                 return(value,self.row_b,self.col_b)
             elif value < 9 and self.col_b >= 0:
                 value += 1
 
-                print "row, column:", self.row_b, self.col_b
-                print "the ORIGINAL matrix:", self.backup_matrix[self.row_b][self.col_b]
-                print "****************---------++++++++++++++++**********************///////////"
-                print "the new matrix:", self.matrix[self.row_b][self.col_b]
-                print "self back matrxi is equal to 0"
-                print self.matrix
+                #print "row, column:", self.row_b, self.col_b
+                #print "the ORIGINAL matrix:", self.backup_matrix[self.row_b][self.col_b]
+                #print "****************---------++++++++++++++++**********************///////////"
+                #print "the new matrix:", self.matrix[self.row_b][self.col_b]
+                #print "self back matrxi is equal to 0"
+                #print self.matrix
                 return(value,self.row_b,self.col_b)
             else:
-                 print"The sudoku cannot be solved totally"
+                 #print"The sudoku cannot be solved totally"
                  return(11,self.dimension,self.dimension)
 
 
         elif self.backup_matrix[self.row_b][self.col_b] <> 0 and self.col_b >= 0:
             '''When the initial sudoku has a number different to 0 on square'''
-            print "self bacck matrix is differente to 0"
-            print "row, column:", self.row_b, self.col_b
-            print "the original matrix:", self.backup_matrix[self.row_b][self.col_b]
-            print "****************---------++++++++++++++++**********************///////////"
-            print "the new matrix:", self.matrix[self.row_b][self.col_b]
+            #print "self bacck matrix is differente to 0"
+            #print "row, column:", self.row_b, self.col_b
+            #print "the original matrix:", self.backup_matrix[self.row_b][self.col_b]
+            #print "****************---------++++++++++++++++**********************///////////"
+            #print "the new matrix:", self.matrix[self.row_b][self.col_b]
             #self.col_b = self.col_b - 1# ojojo
             if self.row_b > 0 and self.col_b == 0:
                '''to verify if can be back a previous row, the column is updated to max dimension '''
@@ -105,7 +105,7 @@ class Backtracking:
             return(value,self.row_b,self.col_b)
 
         else:
-            print "The matrix cannot be solved"
+            #print "The matrix cannot be solved"
             return(11,self.dimension,self.dimension)
 
 
@@ -141,20 +141,20 @@ class Block(Backtracking):
         column=post_init[1]
         while row<=post_row_end:
             while column<=post_column_end:
-                if column == 8 or column == 7 or column == 6:
-                    print "row,column (%i, %i)"% (row,column)
-                    print "value = %i"%value
-                    print "matrix :%i" % matrix[row][column]
+                #if column == 8 or column == 7 or column == 6:
+                #   print "row,column (%i, %i)"% (row,column)
+                #   print "value = %i"%value
+                #   print "matrix :%i" % matrix[row][column]
 
                 if value == matrix[row][column] and row!=post_row and column!=post_column:
-                    # print value
-                    # print "row,column (%i, %i)"% (row,column)
-                    print "FALSE"
-                    return False
+                   #print value
+                   #print "row,column (%i, %i)"% (row,column)
+                   #print "FALSE"
+                   return False
                 column+=1
             column=post_init[1]
             row+=1
-        print "TRUE"
+        #print "TRUE"
         return True
 
     def get_initial_positions_for_block(self,post_row,post_column):
@@ -188,17 +188,21 @@ class Block(Backtracking):
 
 
 # default_matrx= \
-#         [4,0,0,0,0,0,8,0,5], \
-#         [0,3,0,0,0,0,0,0,0], \
-#         [0,0,0,7,0,0,0,0,0], \
-#         [0,2,0,0,0,0,0,6,0], \
-#         [0,0,0,0,8,0,4,0,0], \
-#         [0,0,0,0,1,0,0,0,0], \
-#         [0,0,0,6,0,3,0,7,0], \
-#         [5,0,0,2,0,0,0,0,0], \
-#         [1,0,4,0,0,0,0,0,0]
+#          [4,0,0,0,0,0,8,0,5], \
+#          [0,3,0,0,0,0,0,0,0], \
+#          [0,0,0,7,0,0,0,0,0], \
+#          [0,2,0,0,0,0,0,6,0], \
+#          [0,0,0,0,8,0,4,0,0], \
+#          [0,0,0,0,1,0,0,0,0], \
+#          [0,0,0,6,0,3,0,7,0], \
+#          [5,0,0,2,0,0,0,0,0], \
+#          [1,0,4,0,0,0,0,0,0]
 
-# matrix = Backtracking(default_matrx,9)
+
+
+#matrix = Backtracking(first_matrx,9)
+#matrix.solve_backtracking(first_matrx)
+#print matrix.solve_backtracking(first_matrx)
 # block = Block()
 # result = block.validate_block(default_matrx,4,3,2)
 # #result_comp = assertEqual(True, result)

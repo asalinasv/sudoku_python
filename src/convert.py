@@ -37,3 +37,38 @@ class GeneralConverter:
         for k, v in ordered.iteritems():
             string += v
         return string
+
+    def convert_txt_file_to_matrix(self,txt_file):
+        txtreader = ReadFiles(txt_file)
+        buffertxt = txtreader.reading_txt()
+        M=[]
+        for i in range(9):
+            M.append([0]*9)
+        a, i, j = 0,0,0
+        try:
+            for x in buffertxt:
+                if(x != '\n'):
+                    M[i][j] = int(x)
+                    j += 1
+                    a += 1
+                    if(j == 9):
+                        i += 1
+                        j = 0
+        except IndexError:
+            print "PLEASE INSERT A 9x9 MATRIZ in a TXT file"
+            return False
+        return M
+
+    def convert_matrix_to_string(self,matrix):
+        string = ''
+        for i in matrix:
+            for j in i:
+                string += str(j)
+        return string
+
+
+prueba = GeneralConverter()
+#a = prueba.convert_txt_file_to_matrix("juego.txt")
+print prueba.convert_txt_file_to_matrix("juego.txt")
+#b = prueba.convert_matrix_to_string(a)
+#print b
