@@ -3,10 +3,39 @@
 # Automation Class (Sudoku project) - 2013
 class FileReader():
     config_file=''
-
+ 
     def __init__(self,config_file):
         self.config_file=config_file
-
+     
+    def get_name_label(self,config):
+        var = config.split(":")
+        return var
+          
+    def read_output_file(self):
+        content = self.right_contain_of_the_ini_file()
+       
+        for i in range(len(content)):
+            value = self.get_name_label(content[i])
+            if value[0] == "Output_file":
+                self.output_file=value[1]
+                return self.output_file
+                       
+    def read_default_algorithm(self):
+        content = self.right_contain_of_the_ini_file()
+       
+        for i in range(len(content)):
+            value = self.get_name_label(content[i])
+            if value[0] == "Default_alghoritm":
+                return value[1] 
+    
+    def read_dificult_level(self):
+        content = self.right_contain_of_the_ini_file()
+       
+        for i in range(len(content)):
+            value = self.get_name_label(content[i])
+            if value[0] == "Dificult_level":
+                return value[1]
+    
     def file_exist(self):
         """"
         'file_exist' method verifies that config file exist or not and raise an error it it does not exist
@@ -35,9 +64,7 @@ class FileReader():
             else:
                 f.close()
                 return False
-                                
-            
-     
+                                     
     def right_configuration_extension(self):
         """
         This method verifies that file has the right extension
@@ -67,20 +94,12 @@ class FileReader():
                     
                     return tag_name_setting
                 
-
     def read_txt_file(self):
         """
         This method is to support read the plain text file and return a string with the contain on the file
         """
-        f=open(self.config_file,'r')
-        file_contain=''
-        file_tag_name=''
-  
-        for l in f.readlines():
-            file_contain+=str(l.strip().split("\t"))
+        f = open(self.config_file,'r')
+        file_contain = f.readlines()
         f.close()
+        return file_contain
 
-        for i in range(0,len(file_contain)):
-            file_tag_name+=str(file_contain[i])
- 
-        return file_tag_name
