@@ -1,15 +1,43 @@
-import sudokubacktrack
+# File_Reader class, read inputs for sudoku from csv and txt
+# Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
+#Automation Class (Sudoku project) - 2013
+
 from convert import *
 from norvigalgorithm import NorvigAlgorithm
 from sudokubacktrack import *
+from storer import Storer
+from readconfiguration import *
 
-class Solver(ReadFiles):
+
+class Solver(SudokuFileReader):
     def __init__(self,file):
-        ReadFiles.__init__(self,file)
+        SudokuFileReader.__init__(self,file)
         self.convert = GeneralConverter()
         self.norvigalg = NorvigAlgorithm()
+        self.readconf = FileReader("config.ini")
 
-    def norvig_algorithm(self):
+
+    def solvesudoku(self):
+        if(self.readconf.read_default_algorithm() == 'Norvig\n'):
+            return self.solve_using_norvig_algorithm()
+        if(self.readconf.read_default_algorithm() == 'Backtracking\n'):
+            return self.solve_using_backtracking_algorithm()
+        else:
+            print "The algorithm specified in the configuration file is invalid\
+                    \n Please set a valid algorithm"
+            return
+
+    def savesudoku(self,matrix):
+        extension = self.readconf.read_output_file()
+        extension = extension.replace("\n", '')
+        extension = extension.lower()
+        name = raw_input("Please insert a name to store the resolved sudoku file\n")
+        store = Storer(matrix,name,extension)
+        store.save_matrix_to_file()
+        return
+
+    def solve_using_norvig_algorithm(self):
+        """ Calls the norvigalgorithm class to solve the specified file """
         if(self.gettype()== "TXT File"):
             if(self.validate_size_txt()==81 and self.validate_values_txt()):
                 a = self.convert.convert_txt_file_to_string(self.file)
@@ -26,23 +54,16 @@ class Solver(ReadFiles):
             print "Please insert a valid dimension"
             return "invalid extension"
         resdict = self.norvigalg.solve(a)
+        print "Sudoku solved using Norvig Algorithm\n\n"
         self.norvigalg.display(resdict)
         resstring = self.convert.convert_dictionary_to_string(resdict)
-        return resstring
-        
-    def store_solution_in_txt_file(self):
-        sudo = open('resolvedsudoku.txt','w')
-        cad = self.norvig_algorithm()
-        substringlist = [cad[i:i+9] for i in range(0, len(cad), 9)]
-        for x in substringlist:
-            sudo.write(x+'\n')
-        sudo.close()
-        suread = open('resolvedsudoku.txt','r')
-        sudoread = suread.read()
-        suread.close()
-        return sudoread
+        #return resstring
+        matrix = self.convert.convert_string_to_matrix(resstring)
+        self.savesudoku(matrix)
+        return matrix
 
-    def backtracking_algorithm(self):
+    def solve_using_backtracking_algorithm(self):
+        """ Calls the backtracking class to solve the specified file """
         if(self.gettype()== "TXT File"):
             if(self.validate_size_txt()==81 and self.validate_values_txt()):
                 a = self.convert.convert_txt_file_to_matrix(self.file)
@@ -58,30 +79,18 @@ class Solver(ReadFiles):
         if(self.gettype()== "invalid extension"):
             print "Please insert a valid dimension"
             return "invalid extension"
-        #print a
         sudokubacktrack = Backtracking(a,9)
         resmatrix = sudokubacktrack.solve_backtracking(a)
-#        print resmatrix
+        print "Sudoku solved using Backtracking Algorithm\n\n"
+        print resmatrix
+        a = self.convert.convert_matrix_to_string(resmatrix)
+        matrixstr = self.convert.convert_string_to_matrix(a)
+        self.savesudoku(matrixstr)
+        return matrixstr
 
-        # resstring = self.convert.convert_dictionary_to_string(resdict)
-        # need to be implemented in convert class, ,ethod to convert matrix to string
-        return resmatrix
+        #return resmatrix
 
-    def store_solution_in_txt_file_bt(self):
-        sudo = open('resolvedsudokuisra.txt','w')
-        mat = self.backtracking_algorithm()
-        cad = self.convert.convert_matrix_to_string(mat)
-        substringlist = [cad[i:i+9] for i in range(0, len(cad), 9)]
-        for x in substringlist:
-            sudo.write(x+'\n')
-        sudo.close()
-        suread = open('resolvedsudokuisra.txt','r')
-        sudoread = suread.read()
-        suread.close()
-        return sudoread
 
-#isra = Solver("juegoisra.txt")
-#a = isra.backtracking_algorithm()
-#isra.store_solution_in_txt_file_bt()
-#print "Ajjj Isra, controla tu recursividad XD"
-#print a
+
+#sol = Solver("juego.txt")
+#sol.solvesudoku()
