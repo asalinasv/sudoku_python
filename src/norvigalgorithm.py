@@ -1,3 +1,7 @@
+# NorvigAlgorithm class, read inputs for sudoku from csv and txt
+# Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
+# Automation Class (Sudoku project) - 2013
+
 class NorvigAlgorithm:
     def __init__(self):
         self.digits   = '123456789'
@@ -14,29 +18,37 @@ class NorvigAlgorithm:
                      for s in self.squares)
 
     def getsquares(self):
+        """ Returns the matrix for the constructed squares """
         return self.squares
 
     def getunitlist(self):
+        """ Returns a dictionary with the grid for the sudoku """
         return self.unitlist
 
     def count_squares(self):
+        """ Returns the number of squares for the sudoku """
         return len(self.squares)
 
     def count_sublines(self):
+        """ Returns the number of lines for each submatrix """
         return len(self.unitlist)
 
     def count_units(self):
+        """ Returns the number of units for a square """
         for s in self.squares:
             return len(self.units[s])
 
     def count_peers(self):
+        """ Return the number of peers for a square """
         for s in self.squares:
             return len(self.peers[s])
 
     def near_units(self,unit):
+        """ Returns the units that iteract with the square """
         return self.units[unit]
 
     def near_peers(self,peer):
+        """ Returns the peers that iteract with the square """
         return self.peers[peer]
 
     def cross(self, A, B):
@@ -46,7 +58,6 @@ class NorvigAlgorithm:
     def parse_grid(self,grid):
         """Convert grid to a dict of possible values, {square: digits}, or
         return False if a contradiction is detected."""
-        ## To start, every square can be any digit; then assign values from the grid.
         values = dict((s, self.digits) for s in self.squares)
         if self.grid_values(grid)==False:
             print "Norvig algorithm is receiving an input different of 81 characters"
@@ -110,7 +121,8 @@ class NorvigAlgorithm:
             for r in self.rows:
                 print ''.join(values[r+c].center(width)+('|' if c in '36' else '')
                               for c in self.cols)
-                if r in 'CF': print line
+                if r in 'CF':
+                    print line
             print
             return True
 
@@ -129,9 +141,9 @@ class NorvigAlgorithm:
         n,s = min((len(values[s]), s) for s in self.squares if len(values[s]) > 1)
         return self.some(self.search(self.assign(values.copy(), s, d)) \
                         for d in values[s])
-
     def some(self,seq):
         "Return some element of seq that is true."
         for e in seq:
-            if e: return e
+            if e:
+                return e
         return False
