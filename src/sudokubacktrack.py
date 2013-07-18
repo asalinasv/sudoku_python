@@ -1,5 +1,13 @@
 import copy
-class Backtracking:
+class Algorithm():
+      def __init__(self, dimension):
+          self.dimension = dimension
+          difficulty = "medium"
+
+      def get_matrix(self):
+          return self.dimension
+
+class Backtracking(Algorithm):
     def __init__(self,matrix,dimension):
         self.matrix = matrix
         self.backup_matrix = copy.deepcopy(matrix)

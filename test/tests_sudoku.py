@@ -31,7 +31,7 @@ class TestBacktracking(unittest.TestCase):
 
         #self.matrix = Backtracking()
         #self.matrix_copy=copy.deepcopy(self.default_matrx)
-        self.matrix_copy=self.default_matrx
+        self.matrix_copy = self.default_matrx
         self.matrix = Backtracking(self.default_matrx,9)
         self.block = Block()
         #[4,0,3,9,2,1,6,0,0]
