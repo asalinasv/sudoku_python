@@ -1,5 +1,6 @@
 from norvigalgorithm import *
 from convert import GeneralConverter
+import os
 
 class CommandLine:
     def __init__(self):
@@ -8,7 +9,7 @@ class CommandLine:
     """Definitions for command line reading and solving"""
 
     def reading_command_line(self):
-        #commandline = raw_input('Please insert a string with 81 characters to play the sudoku game : \n')
+        self.commandline = raw_input('Please insert a string with 81 characters to play the sudoku game : \n')
         #commandline = '483921657967345821251876493548132976729564138136798245372689514814253769695417382'
         if self.commandline != '':
             return self.commandline
@@ -16,7 +17,7 @@ class CommandLine:
             return False
 
     def validate_size_command_line(self):
-        #commandline = self.reading_command_line()
+        commandline = self.reading_command_line()
         #commandline = '483921657967345821251876493548132976729564138136798245372689514814253769695417382'
         b = 0
         for x in self.commandline:
@@ -40,17 +41,13 @@ class CommandLine:
         return True
 
     def solve_from_commandline(self):
-        #a = raw_input('Please insert a string with 81 characters to play the sudoku game : \n')
+        a = raw_input('Please insert a string with 81 characters to play the sudoku game : \n')
         #commandline = '483921657967345821251876493548132976729564138136798245372689514814253769695417382'
+        os.system('cls')
         norvig = NorvigAlgorithm()
-        b = norvig.solve(self.commandline)
+        b = norvig.solve(a)
         print norvig.display(b)
+        print "\n\nSudoku has been resolved sucessfully"
         generalconv = GeneralConverter()
         cad = generalconv.convert_dictionary_to_string(b)
         return cad
-
-
-#com = CommandLine()
-#com.solve_from_commandline()
-#com.validate_size_command_line()
-#com.validate_values_command_line()
