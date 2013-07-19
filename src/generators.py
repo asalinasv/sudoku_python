@@ -17,9 +17,10 @@ class SudokuGenerator:
     '''
     level = ''
     files = []
-    path_easy = os.path.realpath('Sudoku_Levels/Easy/') #os.path.abspath('Sudoku_Levels/Easy/')
-    path_medium = 'Sudoku_Levels/Medium/'
-    path_hard = 'Sudoku_Levels/Hard/'
+    script_dir = os.path.dirname(__file__) 
+    path_easy = os.path.join(script_dir, "Sudoku_Levels/Easy/")
+    path_medium = os.path.join(script_dir,'Sudoku_Levels/Medium/')
+    path_hard = os.path.join(script_dir,'Sudoku_Levels/Hard/')
     
     def __init__(self,config_file):
         '''
@@ -32,42 +33,59 @@ class SudokuGenerator:
         """
         retrieve_file_names method retrieves all file names stored based on difficult level
         """
-
-        if self.level.strip()== "Easier":
-            self.files = [f for f in os.listdir(self.path_easy) if f.endswith('.txt')]
-            return self.files
-                  
-        elif self.level.strip()== "Medium":
-            self.files = [f for f in os.listdir(self.path_medium) if f.endswith('.txt')]
-            return self.files
-        
-        elif self.level.strip()== "Difficult":
-            self.files = [f for f in os.listdir(self.path_hard) if f.endswith('.txt')]
-            return self.files
+        if not self.level:
+            return "No Setting"
         
         else:
-            return "There is not Sudoku game for this difficult level"
+            if self.level.strip()== "Easier":
+                self.files = [f for f in os.listdir(self.path_easy) if f.endswith('.txt')]
+                return self.files
+                      
+            elif self.level.strip()== "Medium":
+                self.files = [f for f in os.listdir(self.path_medium) if f.endswith('.txt')]
+                return self.files
+            
+            elif self.level.strip()== "Difficult":
+                self.files = [f for f in os.listdir(self.path_hard) if f.endswith('.txt')]
+                return self.files
+            
+            else:
+                return "There is not Sudoku game for this difficult level"
     
     def select_file(self):
+        """
+        Select any file from the relevant difficult set in the configuration file and return a list
+        """
         file_list = self.retrieve_file_names()
-        num_files = len(file_list)
-        num_f = randint(0, num_files-1)
-        return file_list[num_f]
+        
+        if file_list != "No Setting":
+            num_files = len(file_list)
+            num_f = randint(0, num_files-1)
+            return file_list[num_f]
+        else: 
+            return "No Setting"
        
     def read_file(self):
-        
+        """
+        Read the selected file from the list to display
+        """
         value = []
         files = self.select_file()
-        if self.level.strip() == "Easier":
+        if files == 'No Setting':
+            return files
+        
+        elif self.level.strip() == "Easier":
             f=open(self.path_easy+'/'+files,'r')
+            value = f.readlines()
+            f.close()
+        elif self.level.strip() == "Medium":
+            f=open(self.path_medium+'/'+files,'r')
+            value = f.readlines()
+            f.close()
+        elif self.level.strip() == "Difficult":
+            f=open(self.path_hard+'/'+files,'r')
             value = f.readlines()
             f.close()
         if len(value) == 9:
             return value
         
-if __name__ == "__main__":
-  
-    var = SudokuGenerator("config.ini")
-    matrix = var.read_file()
-    
-    print matrix
