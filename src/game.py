@@ -1,6 +1,6 @@
 import cmd
 # Game classes, Main module that call all the classes to play Sudoku
-# Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
+# Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com - Ana Salinas 
 # Automation Class (Sudoku project) - 2013
 
 import os
