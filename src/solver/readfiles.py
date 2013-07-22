@@ -1,7 +1,9 @@
+import os.path
 # SudokuFileReader class, read inputs for sudoku from csv and txt
 # Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
 #Automation Class (Sudoku project) - 2013
 import csv
+import os
 
 class SudokuFileReader:
     def __init__(self,file):
@@ -24,7 +26,7 @@ class SudokuFileReader:
         r = f1.read()
         f1.close()
         return r
-
+                
     def validate_size_txt(self):
         """ Validate if the txt file contains 81 characters """
         r = self.reading_txt()
@@ -45,7 +47,7 @@ class SudokuFileReader:
         for x in r:
                 if x not in validos:
                     print "The values from txt files are invalid"
-                    return "The values from txt files are invalid"
+                    return False
         return True
 
     """Definitions for CSV file reading """
@@ -79,3 +81,6 @@ class SudokuFileReader:
                     print "The values from csv files are invalid"
                     return "The values from csv files are invalid"
         return True
+
+#sud = SudokuFileReader("juego.txt")
+#sud.reading_txt()

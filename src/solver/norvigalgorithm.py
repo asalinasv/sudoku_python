@@ -16,6 +16,10 @@ class NorvigAlgorithm:
 
         self.peers = dict((s, set(sum(self.units[s],[]))-set([s]))
                      for s in self.squares)
+        #print type(self.unitlist)
+        #print type(self.squares)
+        #print self.squares
+        #print self.peers
 
     def getsquares(self):
         """ Returns the matrix for the constructed squares """
@@ -109,7 +113,7 @@ class NorvigAlgorithm:
                 if not self.assign(values, dplaces[0], d):
                     return False
         return values
-
+    """
     def display(self,values):
         "Display these values as a 2-D grid."
         if values==False:
@@ -125,7 +129,7 @@ class NorvigAlgorithm:
                     print line
             print
             return True
-
+    """
     ################ Search ################
 
     def solve(self,grid):
@@ -147,3 +151,7 @@ class NorvigAlgorithm:
             if e:
                 return e
         return False
+
+#nor = NorvigAlgorithm()
+#a = nor.solve('4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......')
+#nor.display(a)

@@ -1,17 +1,23 @@
+import os.path
 import unittest
 import csv
-from readfiles import ReadFiles
+from solver.readfiles import SudokuFileReader
+import sys
+sys.path.append('./src/Configuration')
+sys.path.append('./src/Player')
+sys.path.append('./src/Menu')
 
 class TestReadFiles(unittest.TestCase):
     def setUp(self):
-        self.txtfile = "juego.txt"
-        self.txtfile1 = "juego1.txt"
-        self.csvfile = "juego.csv"
-        self.readvalidtxt = ReadFiles("juego.txt")
-        self.readinvalidtxt = ReadFiles("juego1.txt")
-        self.readvalidcsv = ReadFiles("juego.csv")
-        self.readinvalidcsv = ReadFiles("juego1.csv")
-        self.invalidfile = ReadFiles("hola.png")
+        self.txtfile = os.path.abspath("../src/Menu/EmptySudokus/juego.txt")
+        self.txtfile1 = os.path.abspath("../src/Menu/EmptySudokus/juego1.txt")
+        self.csvfile = os.path.abspath("../src/Menu/EmptySudokus/juego.csv")
+        self.csvfile1 = os.path.abspath("../src/Menu/EmptySudokus/juego1.csv")
+        self.readvalidtxt = SudokuFileReader(self.txtfile)
+        self.readinvalidtxt = SudokuFileReader(self.txtfile1)
+        self.readvalidcsv = SudokuFileReader(self.csvfile)
+        self.readinvalidcsv = SudokuFileReader(self.csvfile1)
+        self.invalidfile = SudokuFileReader("hola.png")
                
     def test_if_gettype_verifies_a_txt_file(self):
         expected = "TXT File"
@@ -43,7 +49,7 @@ class TestReadFiles(unittest.TestCase):
         self.assertEqual(expected, self.readvalidtxt.validate_values_txt())
 
     def test_if_alert_message_is_displayed_for_non_valid_values_in_txt_file(self):
-        expected = "The values from txt files are invalid"
+        expected = False
         self.assertEqual(expected,self.readinvalidtxt.validate_values_txt())
 
     def test_if_solver_is_able_to_read_a_csv_file(self):

@@ -7,7 +7,7 @@ import os
 import sys
 sys.path.append('./src/Configuration')
 
-from readconfiguration import FileReader
+from Configuration.readconfiguration import FileReader
 from random import randint
 
 

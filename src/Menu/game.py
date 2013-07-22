@@ -1,3 +1,4 @@
+import os.path
 import cmd
 # Game classes, Main module that call all the classes to play Sudoku
 # Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
@@ -11,24 +12,33 @@ from solver.commandline import CommandLine
 sys.path.append('./src/Configuration')
 sys.path.append('./src/Player')
 
-from readconfiguration import FileReader
-from storer import *
-from store_setting import StorerSetting
-from configuration import Configuration
-
+from Configuration.readconfiguration import FileReader
+from solver.storer import *
+from Configuration.store_setting import StorerSetting
+from Configuration.configuration import Configuration
+import time
 
 class Welcome:
     
     def welcome(self):
+        if not os.path.exists('EmptySudokus'):
+            os.makedirs('EmptySudokus')
+        if not os.path.exists('ResolvedSudokus'):
+            os.makedirs('ResolvedSudokus')
         os.system('cls')
-        print "Welcome to Sudoke game" +'\n'+"Please select an option to start"
+        print "******************Welcome to Sudoke game***********************\n"+\
+                '\n'+"Please select an option to start:\n"
         print "1: Menu \n2: Exit"
-        value = int(raw_input())
-        if value == 1:
-            return Menu().menu()
-        if value == 2:
-            return Exit().exit()
-        else:
+        try:
+            value = int(raw_input())
+            if value == 1:
+                return Menu().menu()
+            if value == 2:
+                return Exit().exit()
+            else:
+                print "Please insert a value from the list"
+                return self.welcome()
+        except ValueError:
             print "Please insert a value from the list"
             return self.welcome()
 
@@ -43,51 +53,87 @@ class Menu:
                 4: Configure Settings\n\
                 5: Back to Welcome\n\
                 6: Exit'
-        value = int(raw_input())
-        if value == 1:
-            return FileResolver().resolvefromfile()
-        if value == 2:
-            return CmdResolver().resolvefromcmd()
-        if value == 3:
-            return SudokuGeneratorGame().generatesudoku()
-        if value == 4:
-            return SettingsConfiguratorDisplay("config.ini").configuresettings()
-        if value == 5:
-            return Welcome().welcome()
-        if value == 6:
-            return Exit().exit()
+        try:
+            value = int(raw_input())
+            if value == 1:
+                return FileResolver().resolvefromfile()
+            if value == 2:
+                return CmdResolver().resolvefromcmd()
+            if value == 3:
+                return SudokuGeneratorGame().generatesudoku()
+            if value == 4:
+                return SettingsConfiguratorDisplay("config.ini").configuresettings()
+            if value == 5:
+                return Welcome().welcome()
+            if value == 6:
+                return Exit().exit()
+            else:
+                return self.menu()
+        except ValueError:
+            return self.menu()
             
 class FileResolver():
     
-    def __init__(self):
-        self.exit = Exit()
-        
     def resolvefromfile(self):
         os.system('cls')
-        print "Please insert the name of the file to resolve\n\
-                or type 'exit' to exit"
-        self.filer = raw_input()
-        if self.filer == 'exit':
-            self.exit.exit()
+        print "Please select a file to resolve a sudoku: \n"
+        print "Available files to be resolved:"
+        a = os.listdir('EmptySudokus')
+        for i in a:
+            print i
+        print "\n\nOptions:\n1:Back to Menu\n2:Exit"
+        print "\n\n\nHELP: Please copy the empty sudoku files in the "+\
+                os.path.abspath("EmptySudokus")+" folder to be resolved"
+        self.filer = raw_input('\n')
+        if self.filer == '1':
+            return Menu().menu()
+        if self.filer == '2':
+            return Exit().exit()
         else:
-            return SudokuDisplayer().display(self.filer)
+            if os.path.isfile('EmptySudokus\\'+self.filer):
+                self.filer = os.path.abspath('EmptySudokus\\'+self.filer)
+                return SudokuDisplayer().display(self.filer)
+            else:
+                return self.resolvefromfile()
 
 class SudokuDisplayer:
 
     def display(self,file):
         os.system('cls')
-        print "Sudoku has been resolved sucessfully\n\n\n"
         solv = Solver(file)
-        solv.solvesudoku()
-        return
+        if solv.solvesudoku()== False:
+            return FileResolver().resolvefromfile()
+        else:
+            print "\n\nOptions:\n1:Back to Menu\n2:Exit"
+            return self.validateoption()
+    def validateoption(self):
+        self.option = raw_input('\n')
+        if self.option == '1':
+            return Menu().menu()
+        if self.option == '2':
+            return Exit().exit()
+        else:
+            return self.validateoption()
         
 class CmdResolver:
 
     def resolvefromcmd(self):
         os.system('cls')
-        cmd = CommandLine()
-        cmd.solve_from_commandline()
-        return
+        print "Options:\n1:Back to Menu\n2:Exit\n"
+        print 'Please insert a string with 81 characters to play the sudoku game : \n'
+        self.string = raw_input()
+        if self.string == '1':
+            return Menu().menu()
+        if self.string == '2':
+            return Exit().exit()
+        else:
+            cmd = CommandLine(self.string)
+            if cmd.solve_from_commandline() == False:
+                time.sleep(3.0)
+                self.resolvefromcmd()
+            else:
+                raw_input('Press any key to insert other string')
+                return self.resolvefromcmd()
 
 class SudokuGeneratorGame:
     '''

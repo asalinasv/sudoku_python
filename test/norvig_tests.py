@@ -1,5 +1,5 @@
 import unittest
-from norvigalgorithm import *
+from solver.norvigalgorithm import *
 
 class TestNorvigAlgorithm(unittest.TestCase):
     def setUp(self):
@@ -99,16 +99,6 @@ class TestNorvigAlgorithm(unittest.TestCase):
     def test_if_grid_values_method_is_handling_invalid_inputs(self):
         expected = False
         self.assertEqual(expected,self.norvig.grid_values(self.invalidstringtonorvig))
-
-    def test_if_display_method_is_handling_invalid_values(self):
-        result = self.norvig.grid_values(self.invalidstringtonorvig)
-        expected = False
-        self.assertEqual(expected,self.norvig.display(result))
-
-    def test_if_display_method_can_print_the_result(self):
-        result = self.norvig.grid_values(self.stringtonorvig)
-        expected = True
-        self.assertEqual(expected,self.norvig.display(result))
 
     def test_if_near_squares_are_validated(self):
         expected = False
