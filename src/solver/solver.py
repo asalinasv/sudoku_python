@@ -99,3 +99,32 @@ class Solver(SudokuFileReader):
         SudokuDisplayer(matrixstr).displaysudoku()
         #self.savesudoku(matrixstr)
         return matrixstr
+
+    def solve_sudoku_game_backtracking(self, matrix):
+        """
+        @author: Ana Salinas
+        method added to link solver with hintsdiplayer methods
+        """
+        if len(matrix)<9 or len(matrix)>9:
+            return "Invalid matrix"
+        else:
+            sudokubacktrack = Backtracking(matrix, 9)
+            resolved_matrix = sudokubacktrack.solve_backtracking(matrix)
+                
+        return resolved_matrix
+
+    def solve_sudoku_game_norvig(self, matrix):
+        """
+        @author: Ana Salinas
+        method added to link solver with hintsdiplayer methods
+        """
+        if len(matrix)<9 or len(matrix)>9:
+            return "Invalid matrix"
+        else:
+            a = self.convert.convert_matrix_to_string(matrix)
+            resdict = self.norvigalg.solve(a)
+            resstring = self.convert.convert_dictionary_to_string(resdict)
+            #return resstring
+            resolved_matrix = self.convert.convert_string_to_matrix(resstring)
+            
+        return resolved_matrix
