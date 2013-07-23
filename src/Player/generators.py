@@ -27,8 +27,8 @@ class SudokuGenerator:
         Constructor: define which is the difficult level set by the user at config.ini file
         '''
         self.readfile = FileReader(config_file)
-        self.level = self.readfile.read_dificult_level()
-                
+        self.level = self.readfile.read_dificult_level().lower()
+                        
     def retrieve_file_names(self):
         """
         retrieve_file_names method retrieves all file names stored based on difficult level
@@ -37,15 +37,16 @@ class SudokuGenerator:
             return "No Setting"
         
         else:
-            if self.level.strip()== "Easier":
+            if self.level.strip() == "easier":
                 self.files = [f for f in os.listdir(self.path_easy) if f.endswith('.txt')]
                 return self.files
                       
-            elif self.level.strip()== "Medium":
+            elif self.level.strip() == "medium":
+                
                 self.files = [f for f in os.listdir(self.path_medium) if f.endswith('.txt')]
                 return self.files
             
-            elif self.level.strip()== "Difficult":
+            elif self.level.strip() == "difficult":
                 self.files = [f for f in os.listdir(self.path_hard) if f.endswith('.txt')]
                 return self.files
             
@@ -57,7 +58,7 @@ class SudokuGenerator:
         Select any file from the relevant difficult set in the configuration file and return a list
         """
         file_list = self.retrieve_file_names()
-        
+              
         if file_list != "No Setting":
             num_files = len(file_list)
             num_f = randint(0, num_files-1)
@@ -76,12 +77,13 @@ class SudokuGenerator:
         if files == 'No Setting':
             return files
         
-        elif self.level.strip() == "Easier":
+        elif self.level.strip() == "easier":
             value = converter.convert_txt_file_to_string(self.path_easy+'/'+files)
-     
-        elif self.level.strip() == "Medium":
+  
+        elif self.level.strip() == "medium":
             value = converter.convert_txt_file_to_string(self.path_medium+'/'+files)
-        elif self.level.strip() == "Difficult":
+            
+        elif self.level.strip() == "difficult":
             value = converter.convert_txt_file_to_string(self.path_hard+'/'+files)
         if len(value) == 81:
             return converter.convert_string_to_matrix(value)
