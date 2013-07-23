@@ -119,7 +119,7 @@ class FileReader():
         f = open(self.config_file,'r')
         file_contain = f.readlines()
         f.close()
-
+        
         return file_contain
 
 if __name__ == "__main__":
