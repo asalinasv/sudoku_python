@@ -7,9 +7,9 @@ import os
 import sys
 sys.path.append('./src/Configuration')
 
-from Configuration.readconfiguration import FileReader
+from readconfiguration import FileReader
 from random import randint
-
+from solver.convert import GeneralConverter
 
 class SudokuGenerator:
     '''
@@ -28,7 +28,7 @@ class SudokuGenerator:
         '''
         self.readfile = FileReader(config_file)
         self.level = self.readfile.read_dificult_level()
-        
+                
     def retrieve_file_names(self):
         """
         retrieve_file_names method retrieves all file names stored based on difficult level
@@ -71,21 +71,26 @@ class SudokuGenerator:
         """
         value = []
         files = self.select_file()
+        converter = GeneralConverter()
+        
         if files == 'No Setting':
             return files
         
         elif self.level.strip() == "Easier":
-            f=open(self.path_easy+'/'+files,'r')
-            value = f.readlines()
-            f.close()
+            value = converter.convert_txt_file_to_string(self.path_easy+'/'+files)
+     
         elif self.level.strip() == "Medium":
-            f=open(self.path_medium+'/'+files,'r')
-            value = f.readlines()
-            f.close()
+            value = converter.convert_txt_file_to_string(self.path_medium+'/'+files)
         elif self.level.strip() == "Difficult":
-            f=open(self.path_hard+'/'+files,'r')
-            value = f.readlines()
-            f.close()
-        if len(value) == 9:
-            return value
-        
+            value = converter.convert_txt_file_to_string(self.path_hard+'/'+files)
+        if len(value) == 81:
+            return converter.convert_string_to_matrix(value)
+
+if __name__ == "__main__":
+    script_dir = os.path.dirname(__file__) 
+    #path = os.path.join(script_dir, "../src/Configuration/config.ini")
+    path = os.path.abspath("../Configuration/config.ini")
+    #path = ("../Configuration/config.ini")
+    print path
+    var = SudokuGenerator(path)
+    print var.read_file()
