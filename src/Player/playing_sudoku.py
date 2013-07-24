@@ -8,16 +8,22 @@
 #-------------------------------------------------------------------------------
 import os
 import sys
+import copy
 #from sys import path
 ##path.append("../src/solver/")
 sys.path.append('../../src')
 from solver.sudokubacktrack import *
-from solver.sudokubacktrack import Block
+from solver.storer import *
+from solver.display import *
+from Player.sudokusavepartialgame import *
+#from solver.sudokubacktrack import Block
 from Player.hint_displayer import *
 
 class Game():
       def __init__(self, matrix): #, row, col):
+          self.matrix_orig = copy.deepcopy(matrix)
           self.matrix_one = matrix
+
           self.letters = {'A': 0,'a': 0,'B': 1,'b': 1,'C': 2,'c': 2,'D': 3,'d': 3,'E': 4,'e': 4, \
                        'F': 5,'f': 5,'G': 6,'g': 6,'H': 7,'h': 7,'I': 8,'i': 8}
           self.row = 0 #row
@@ -56,6 +62,9 @@ class Game():
                           return False
 
               if (square[2] != ":"): # validate the colon
+                 return False
+
+              if self.matrix_orig[self.row][self.col] != 0: # validate default value
                  return False
 
               if self.value <= 9:
@@ -101,6 +110,7 @@ class Menu:
           self.matrix_one = matrix
           self.game = Game(self.matrix_one)
           self.hint = HintsDisplayer(self.matrix_one)
+          self.save = GameSaver(self.matrix_one)#Storer(self.matrix_one, "game_customer1", "txt")
           #self.game = SudokuDisplayer(self.matrix)
       def menu(self):
           value = 0
@@ -120,6 +130,7 @@ class Menu:
           if option == "M" or option == "m":
              print "Go to Menu --- need to be completed"
           if option == "S" or option == "s":
+             self.save_option()
              print "Go to SAVE game --- need to be completed"
           if option == "H" or option == "h":
              position = raw_input("Insert the column and row to receive the Hint (e.g. A1): ")
@@ -148,9 +159,13 @@ class Menu:
             if value != False:
                self.game.fill_square(value)
             self.menu()
-
-
           return
+
+      def save_option(self):
+          self.save.matrix = self.matrix_one
+          self.save.savegame()
+
+
 
 class Exit:
     def exit(self):
