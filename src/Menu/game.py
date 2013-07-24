@@ -224,9 +224,6 @@ class SudokuGame:
     def validate_editable_cells(self):
         pass
         
-class OptionHintsDiplayer:
-    def __init__(self):
-        pass
 class SettingsConfiguratorDisplay:
     legend = "\nThis is the current setting values of configuration file:\n"
     setting_menu = "\nPlease select the option to modify any value or leave by default\n"
@@ -296,7 +293,7 @@ class SaveSetting:
             flag, message = self.validate_difficult_level(difficult_level)
             print message
         
-        settings_dic = {"Output_file":output_file, "Default_alghoritm":default_algorithm, "Dificult_level":difficult_level}
+        settings_dic = ["Output_file:"+output_file, "Default_alghoritm:"+default_algorithm, "Dificult_level:"+difficult_level]
         
         save_setting = StorerSetting(path, settings_dic)
         save_setting.save_txt_config_file()
@@ -318,7 +315,7 @@ class SaveSetting:
         if difficult.lower() == "easier" or difficult.lower() == "medium" or difficult.lower() == "difficult":
             return True, ""
         else:
-            return False, "The supported algorithms are: Norvig or BackTracking and Brute Force, Please try again..."
+            return False, "The supported algorithms are: Easier, Medium or Difficult Please try again..."
         
 class Exit:
 
