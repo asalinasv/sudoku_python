@@ -9,19 +9,11 @@
 import unittest
 import copy
 import sys
-##from sys import path
-##path.append("../src/solver")
 sys.path.append('../src')
-##sys.path.append('../src/Player')
-##sys.path.append("../src/Configuration")
 from solver.sudokubacktrack import *
-#sys.path.append("../src/solver")
-
-#from solver.sudokubacktrack import Backtracking
-#from solver.sudokubacktrack import Block
 from Player.playing_sudoku import Game
 from Player.playing_sudoku import Menu
-#from Configuration.readconfiguration import *
+
 
 class TestPlaying(unittest.TestCase):
 
@@ -219,6 +211,15 @@ class TestPlaying(unittest.TestCase):
         value_result = False
         result = self.game.validate_square(value_entered)
         self.assertEqual(True, result)
+
+    def test_validate_if_a_default_position_can_be_updated(self):
+        '''Verify the value entered when hint is used because a ? is used as value
+        '''
+        value_entered = "C1:7"
+        value_result = False
+        result = self.game.validate_square(value_entered)
+        self.assertEqual(False, result)
+
 ##    def test_verify_if_exit_option_work(self):  ojo need to improve how to enter automaticall a raw_inputinput
 ##        self.game.fill_square = "exit"
 ##        result = self.game.fill_square()

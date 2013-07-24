@@ -1,5 +1,11 @@
+import sys
 import unittest
-from sudokubacktrack import Algorithm
+sys.path.append('../src')
+from solver.sudokubacktrack import *
+
+##
+##import unittest
+##from sudokubacktrack import Algorithm
 
 class TestAlgorithm(unittest.TestCase):
 

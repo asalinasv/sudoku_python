@@ -1,7 +1,11 @@
+import sys
 import unittest
 import copy
-from sudokubacktrack import Backtracking
-from sudokubacktrack import Block
+sys.path.append('../src')
+
+from solver.sudokubacktrack import *
+##from sudokubacktrack import Backtracking
+##from sudokubacktrack import Block
 
 class TestBacktracking(unittest.TestCase):
 
