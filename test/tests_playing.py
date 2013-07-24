@@ -8,12 +8,20 @@
 #-------------------------------------------------------------------------------
 import unittest
 import copy
-from sys import path
-path.append("../src")
-from sudokubacktrack import Backtracking
-from sudokubacktrack import Block
-from playing_sudoku import Game
-from playing_sudoku import Menu
+import sys
+##from sys import path
+##path.append("../src/solver")
+sys.path.append('../src')
+##sys.path.append('../src/Player')
+##sys.path.append("../src/Configuration")
+from solver.sudokubacktrack import *
+#sys.path.append("../src/solver")
+
+#from solver.sudokubacktrack import Backtracking
+#from solver.sudokubacktrack import Block
+from Player.playing_sudoku import Game
+from Player.playing_sudoku import Menu
+#from Configuration.readconfiguration import *
 
 class TestPlaying(unittest.TestCase):
 
@@ -113,20 +121,6 @@ class TestPlaying(unittest.TestCase):
         self.block = Block()
         self.menu = Menu(self.first_matrx)
 
-    # def test_backtracking_should_do_nothing_if_board_is_filled(self):
-    #     result = self.block.validate_block(self.default_matrx,4,3,2)
-    #     self.assertEqual(False, result)
-
-    #def test_backtracking_should_back_when_the_value_number_is_wrong(self):
-    #    pass
-
-    #def test_backtracking_should_create_the_board_with_new_values(self):
-    #    pass
-
-
-    # def test_backtracking_should_verify_if_value_does_exist_on_row(self):
-    #     result=sudoku_backtracking.validate_row(self.default_matrx,2,0,1)
-    #     self.assertEqual(True, result)
 
     ##############################
 #start HERE
@@ -134,15 +128,11 @@ class TestPlaying(unittest.TestCase):
 #def test_validate_square
 # def test_validate_correct letters (row and column)
 
-##    def test_convert_to_dictionary(self):
-##        result = self.matrix.convert_to_dictionary()
-##        self.assertEqual(0, result)
-
     def test_validate_square(self):
         '''Verify that a position id validated
 
         '''
-        value_entered = "A0:5"
+        value_entered = "A1:5"
         value_result = 5
         result = self.game.validate_square(value_entered)
         self.assertEqual(value_result, result)
@@ -222,6 +212,13 @@ class TestPlaying(unittest.TestCase):
         result = self.game.validate_square(value_entered)
         self.assertEqual(False, result)
 
+    def test_validate_the_position_when_hint_is_used(self):
+        '''Verify the value entered when hint is used because a ? is used as value
+        '''
+        value_entered = "A1:?"
+        value_result = False
+        result = self.game.validate_square(value_entered)
+        self.assertEqual(True, result)
 ##    def test_verify_if_exit_option_work(self):  ojo need to improve how to enter automaticall a raw_inputinput
 ##        self.game.fill_square = "exit"
 ##        result = self.game.fill_square()
@@ -242,3 +239,4 @@ class TestPlaying(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
