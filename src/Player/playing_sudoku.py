@@ -7,21 +7,23 @@
 # Copyright:   (c) Israel Azurduy 2013
 #-------------------------------------------------------------------------------
 import os
-from sys import path
-path.append("../src/solver/")
-from sudokubacktrack import Backtracking
-from sudokubacktrack import Block
-#from display import SudokuDisplayer
+import sys
+#from sys import path
+##path.append("../src/solver/")
+sys.path.append('../../src')
+from solver.sudokubacktrack import *
+from solver.sudokubacktrack import Block
+from Player.hint_displayer import *
 
 class Game():
       def __init__(self, matrix): #, row, col):
-          self.matrix = matrix
+          self.matrix_one = matrix
           self.letters = {'A': 0,'a': 0,'B': 1,'b': 1,'C': 2,'c': 2,'D': 3,'d': 3,'E': 4,'e': 4, \
                        'F': 5,'f': 5,'G': 6,'g': 6,'H': 7,'h': 7,'I': 8,'i': 8}
           self.row = 0 #row
           self.col = 0 #column
           self.value = 0
-          self.val_row_col = Backtracking(self.matrix,9)
+          self.val_row_col = Backtracking(self.matrix_one,9)
           self.val_block = Block()
 
 
@@ -30,36 +32,39 @@ class Game():
 
           '''
 
-          self.matrix [self.row][self.col] = value
+          self.matrix_one [self.row][self.col] = value
           return 0
 
       def validate_square(self, square):
           if len(square) == 4:
 
               try:
-                  self.row = int(square[1])
+                  self.row = int(square[1])-1 # verify the row
               except:
                      return False
 
               try:
-                  self.col = (self.letters[square[0]]) #self.col = int(square[0])
+                  self.col = (self.letters[square[0]]) #validate the column
               except:
                      return False
               try:
-                  self.value = int(square[3])
+                  self.value = int(square[3]) # validate the value
               except:
-                     return False
+                     if square[3] == "?":
+                        return True
+                     else:
+                          return False
 
-              if (square[2] != ":"):
+              if (square[2] != ":"): # validate the colon
                  return False
 
               if self.value <= 9:
                  '''Verify when the value is less than 10
 
                  '''
-                 if self.val_row_col.validate_column(self.matrix, self.value, self.row, self.col) and \
-                      self.val_row_col.validate_row(self.matrix, self.value, self.row, self.col) and \
-                      self.val_block.validate_block(self.matrix, self.value, self.row, self.col):
+                 if self.val_row_col.validate_column(self.matrix_one, self.value, self.row, self.col) and \
+                      self.val_row_col.validate_row(self.matrix_one, self.value, self.row, self.col) and \
+                      self.val_block.validate_block(self.matrix_one, self.value, self.row, self.col):
                       return self.value
                  else:
                       return False #"You need a HINT... because the value exists"
@@ -68,14 +73,7 @@ class Game():
                    return False # when the value is incorrect retunr False
 
           else:
-               return False # when the value is incorrect retunr False
-
-
-      def validate_value(self, value):
-          if value > 9:
-             return False
-          #if
-
+               return False # when the size is greather than 4
 
 
       def display_game(self):
@@ -83,9 +81,14 @@ class Game():
           print "***************Welcome to interactive Sudoku game***************\n"
           row = 0
           col = 0
+          row_value = 0
+          print "\tA-B-C-D-E-F-G-H-I"
           while row < 9:
+                row_value = row + 1
+                print str(row_value) + "|", '\t',
+
                 while col < 9:
-                      print self.matrix[row][col],
+                      print self.matrix_one[row][col],
                       col += 1
                 col = 0
                 print '\n'
@@ -95,11 +98,14 @@ class Game():
 
 class Menu:
       def __init__(self, matrix):
-          self.matrix = matrix
-          self.game = Game(self.matrix)
+          self.matrix_one = matrix
+          self.game = Game(self.matrix_one)
+          self.hint = HintsDisplayer(self.matrix_one)
           #self.game = SudokuDisplayer(self.matrix)
       def menu(self):
           value = 0
+          value_sug = 0
+          position = ""
           os.system('cls')
 ##          self.game.display_game(self)
           ##Game(self.matrix).display_game()
@@ -113,18 +119,35 @@ class Menu:
 
           if option == "M" or option == "m":
              print "Go to Menu --- need to be completed"
-          elif option == "S" or option == "s":
-               print "Go to SAVE game --- need to be completed"
+          if option == "S" or option == "s":
+             print "Go to SAVE game --- need to be completed"
+          if option == "H" or option == "h":
+             position = raw_input("Insert the column and row to receive the Hint (e.g. A1): ")
+             position = position + ":?"
+             print "the psition is %s" %position
+             retonr = self.game.validate_square(position)
+             print retonr
+             if self.game.validate_square(position):
+                '''To verify that position entered is correct
+
+                '''
+                print "La position es correct THIS WILL BE SENT"
+                value_sug = self.hint.get_value_in_cell(position[0] + position[1])
+                self.game.fill_square(value_sug)
+             else:
+                  print "the value is INCORRECT"
+                  print self.hint.get_value_in_cell("A1")
+
+             print "Go to HINTS --- need to be completed"
+
+
+          if option == "E" or option == "e":
+             Exit().exit()
           else:
-               if option == "H" or option == "h":
-                  print "Go to HINTS --- need to be completed"
-               elif option == "E" or option == "e":
-                    Exit().exit()
-               else:
-                    value = self.game.validate_square(option)
-                    if value != False:
-                       self.game.fill_square(value)
-                    self.menu()
+            value = self.game.validate_square(option)
+            if value != False:
+               self.game.fill_square(value)
+            self.menu()
 
 
           return
