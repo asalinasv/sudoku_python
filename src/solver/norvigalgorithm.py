@@ -154,4 +154,7 @@ class NorvigAlgorithm:
 
 #nor = NorvigAlgorithm()
 #a = nor.solve('4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......')
-#nor.display(a)
+#print a
+#from convert import *
+#b = GeneralConverter().convert_dictionary_to_string(a)
+#print b

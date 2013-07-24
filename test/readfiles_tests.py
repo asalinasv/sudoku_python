@@ -73,14 +73,6 @@ class TestReadFiles(unittest.TestCase):
         expected = "The values from csv files are invalid"
         self.assertEqual(expected,self.readinvalidcsv.validate_values_csv())
 
-
-
-#def test_if_txt_sudoku_is_solved_correctly(self):
-     #   f2 = open(self.presolution,'r')
-      #  expected = f2.read()
-       # f2.close()
-       # self.assertEqual(expected, self.readsolve.solved_sudoku_txt(self.txtfile))
-
 if __name__ == '__main__':
     unittest.main()
 
