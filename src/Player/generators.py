@@ -7,7 +7,7 @@ import os
 import sys
 sys.path.append('./src/Configuration')
 
-from Configuration.readconfiguration import FileReader
+from readconfiguration import FileReader
 from random import randint
 from solver.convert import GeneralConverter
 
@@ -27,8 +27,12 @@ class SudokuGenerator:
         Constructor: define which is the difficult level set by the user at config.ini file
         '''
         self.readfile = FileReader(config_file)
-        self.level = self.readfile.read_dificult_level().lower()
-                        
+        value_level = self.readfile.read_dificult_level()
+        if value_level == 'NoneType':
+            self.level = ""
+        else:
+            self.level = self.readfile.read_dificult_level().lower()
+                           
     def retrieve_file_names(self):
         """
         retrieve_file_names method retrieves all file names stored based on difficult level
@@ -87,12 +91,3 @@ class SudokuGenerator:
             value = converter.convert_txt_file_to_string(self.path_hard+'/'+files)
         if len(value) == 81:
             return converter.convert_string_to_matrix(value)
-
-if __name__ == "__main__":
-    script_dir = os.path.dirname(__file__) 
-    #path = os.path.join(script_dir, "../src/Configuration/config.ini")
-    path = os.path.abspath("../Configuration/config.ini")
-    #path = ("../Configuration/config.ini")
-    print path
-    var = SudokuGenerator(path)
-    print var.read_file()
