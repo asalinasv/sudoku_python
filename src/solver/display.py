@@ -21,18 +21,21 @@ class SudokuDisplayer:
 
     def display(self,values):
         "Display these values as a 2-D grid."
-
+        row_number = 0
         if values==False:
             print "Norvig algorithm is receiving an input different of 81 characters"
             return False
         else:
+            print "\tA-B-C--D-E-F--G-H-I"
             width = 1+max(len(values[s]) for s in self.squares)
             line = '+'.join(['-'*(width*3)]*3)
             for r in self.rows:
+                row_number += 1
+                print str(row_number) + "|", '\t',
                 print ''.join(values[r+c].center(width)+('|' if c in '36' else '')
                               for c in self.cols)
                 if r in 'CF':
-                    print line
+                    print '\t' + line
             print
             return True
 
