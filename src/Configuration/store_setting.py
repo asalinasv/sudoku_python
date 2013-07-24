@@ -10,6 +10,7 @@ class StorerSetting:
     def __init__(self, config_file, settings):
         self.configuration = Configuration(config_file)
         self.readfile = FileReader(config_file)
+        self.storer_setting = settings
 
     """'save_settings_config_file' method saves the settings values in the config file"""
 
@@ -19,14 +20,13 @@ class StorerSetting:
         ln = "\n"
         for i in range(num):
             cadena += self.configuration.settings[i]
-        
         return cadena
 
     def save_txt_config_file(self):
      
         if self.readfile.file_exist() == True or self.readfile.file_exist() == False:
             f = open(self.readfile.config_file,"w")
-            f.write(self.read_setting_dic(self.configuration))
+            f.write(self.storer_setting[0]+"\n"+self.storer_setting[1]+"\n"+self.storer_setting[2])
             f.close()
         return "File Created"
     
