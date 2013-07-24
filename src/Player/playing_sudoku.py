@@ -119,7 +119,9 @@ class Menu:
           os.system('cls')
 ##          self.game.display_game(self)
           ##Game(self.matrix).display_game()
-          self.game.display_game()
+          #self.game.display_game()
+          SudokuDisplayer(self.matrix_one).displaysudoku()
+          SudokuScorer(self.matrix_one).start()
           #self.game.display()
           option = raw_input("\t  - Enter 'M' if you want to return to Menu\n\
           - Enter 'S' if you want to Save the game\n\
