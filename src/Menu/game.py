@@ -1,31 +1,29 @@
 import os.path
-import cmd
 # Game classes, Main module that call all the classes to play Sudoku
 # Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
 # Author: Ana Salinas# Automation Class (Sudoku project) - 2013
-
 import os
 import sys
 
 sys.path.append('./src/Configuration')
-sys.path.append('./src/Player')
-
-from Player.generators import * #SudokuGenerator
+sys.path.append('./src/Player/')
+from Player.generators import *
+from Player.generators import SudokuGenerator
 from solver.solver import Solver
 from solver.commandline import CommandLine
 from solver.readfiles import *
 from solver.convert import *
 
 from Player.playing_sudoku import *
-from Player.sudokusavepartialgame import *
-from Configuration.readconfiguration import FileReader
+from Player.sudokusavepartialgame import *from Configuration.readconfiguration import FileReader
 from solver.storer import *
 from Configuration.store_setting import StorerSetting
 from Configuration.configuration import Configuration
+from Player.sudokusavepartialgame import *
 import time
 
 class Welcome:
-
+    
     def welcome(self):
         if not os.path.exists('EmptySudokus'):
             os.makedirs('EmptySudokus')
@@ -71,9 +69,8 @@ class Menu:
             if value == 4:
                 return SettingsConfiguratorDisplay(self.path).configuresettings()
             if value == 5:
-               SudokuGameSelection() #.SudokuGameSelection()
-##                return SudokuGameSelection().SudokuGameSelection()
-            if value == 6:
+                SudokuGameSelection() #.SudokuGameSelection()
+##                return SudokuGameSelection().SudokuGameSelection()            if value == 6:
                 return Welcome().welcome()
             if value == 7:
                 return Exit().exit()
@@ -81,9 +78,9 @@ class Menu:
                 return self.menu()
         except ValueError:
             return self.menu()
-
+            
 class FileResolver():
-
+    
     def resolvefromfile(self):
         os.system('cls')
         print "Please select a file to resolve a sudoku: \n"
@@ -114,9 +111,11 @@ class SudokuDisplayer:
         if solv.solvesudoku()== False:
             return FileResolver().resolvefromfile()
         else:
-            print "\n\nOptions:\n1:Back to Menu\n2:Exit"
-            return self.validateoption()
+            self.matrixtosave = solv.solvesudoku()
+            return self.savesudoku(self.matrixtosave)
+            
     def validateoption(self):
+        print "\n\nOptions:\n1:Back to Menu\n2:Exit"
         self.option = raw_input('\n')
         if self.option == '1':
             return Menu().menu()
@@ -125,6 +124,16 @@ class SudokuDisplayer:
         else:
             return self.validateoption()
 
+    def savesudoku(self,matrix):
+        absolutepath = os.path.abspath("../Configuration/config.ini")
+        self.readconf = FileReader(absolutepath)
+        extension = self.readconf.read_output_file()
+        extension = extension.lower()
+        name = raw_input("Please insert a name to store the resolved sudoku file\n")
+        store = Storer(matrix,name,extension)
+        store.save_matrix_to_file()
+        return self.validateoption()
+        
 class CmdResolver:
 
     def resolvefromcmd(self):
@@ -152,35 +161,34 @@ class SudokuGeneratorGame:
     @author: Ana Salinas
     Automation Class (Sudoku project) - 2013
     '''
-
+    
 
     def generatesudoku(self):
         """
-        method to generate sudoku and give the option to store the generator sudoku (matrix) or allow the user play
+        method to generate sudoku and give the option to store the generator sudoku (matrix) or allow the user play 
         """
         path = os.path.abspath("../Configuration/config.ini")
         os.system('cls')
         print "\n\
                The 'Sudoku Game' will be generated based on the 'Difficult Level' set at configuration file "
-
+        
         sudoku_game = SudokuGenerator(path)
         matrix = sudoku_game.read_file()
-
 
         if len(matrix)== 9:
             print "Sudoku game created properly "
             for i in range(9):
                 print matrix[i]
-
+            
             print "Please type 'save' to storer the sudoku game in a txt file\nPlease type 'play' to star a new game"
             value = raw_input()
-
+                
         if value.lower() == "save":
             print "Type the name of the file to store a sudoku game"
             file_name = raw_input()
             store_sudoku = Storer(matrix,file_name,"txt")
             store_sudoku.save_matrix_to_file()
-
+            
             return Menu().menu()
         elif value.lower() == "play":
              '''call to playing sudoku to start the game
@@ -189,11 +197,9 @@ class SudokuGeneratorGame:
              self.play = MenuPlay(matrix)
              self.play.menu()
              return
-
-
 class SudokuGameSelection(object):
     """
-    Class to allow user play a sudoku game from
+    Class to allow user play a sudoku game from 
     1 = generated game or
     2 = load sudoku file
     """
@@ -207,17 +213,16 @@ class SudokuGameSelection(object):
         if value == 1:
             return SudokuGeneratorGame().generatesudoku()
         if value == 2:
-           self.open_existing_file()
-
+            self.open_existing_file()
         if value == 3:
             return Menu().menu()
-
+        
     def select_existing_Sudoku(self):
         pass
-
+    
     def select_sudoku_from_generator(self):
         pass
-
+    
     def open_existing_file(self):
         self.display_file = FileDisplayer() # show the list of files
         self.display_file.list_files()
@@ -252,96 +257,95 @@ class FileDisplayer():
            a = os.listdir('EmptySudokus')
            for i in a:
                print i
-
 class SudokuGame:
-
+    
     def __init__(self):
         '''
         Constructor
         '''
     def create_sudoku_game(self):
         self.matrix = SudokuGenerator()
-
+    
     def play_sudoku(self,matrix):
         pass
-
+    
     def print_sudoku_game(self):
         pass
-
+    
     def validate_editable_cells(self):
         pass
-
+        
 class SettingsConfiguratorDisplay:
     legend = "\nThis is the current setting values of configuration file:\n"
     setting_menu = "\nPlease select the option to modify any value or leave by default\n"
     path = ("../Configuration/config.ini")
-
+    
     read_file_setting = ""
     def __init__(self, config_file):
         self.read_file_setting = FileReader(self.path)
-
+                
     def configuresettings(self):
         os.system('cls')
         print self.legend
         value_setting = self.read_file_setting.read_txt_file()
-
+        
         for i in range(len(value_setting)):
                        print value_setting[i]
         self.sub_menu_setting()
-
+        
     def sub_menu_setting(self):
-
+        
         print self.setting_menu
         print '\
                 1: Leave By default\n\
                 2: Modify Setting Values\n\
                 3: Back To Main Menu\n'
-
+        
         value = int(raw_input())
         if value == 1:
             return Menu().menu()
-
+        
         if value == 2:
             return SaveSetting().save_all_setting_in_file(self.path)
-
+        
         if value == 3:
             return Menu().menu()
-
+        
 
 class SaveSetting:
-
+    
     def save_setting_in_file(self, path):
         os.system('cls')
         print '\n\
                Insert the new output file format Txt, or Csv\n'
-        value = int(raw_input())
-
+        value = int(raw_input()) 
+    
     def save_all_setting_in_file(self, path):
         os.system('cls')
         flag = False
-
-        while flag == False:
+        
+        while flag == False: 
             print 'Please Insert the Output_file:\n'
             output_file = str(raw_input())
             flag, message = self.validate_outputfile(output_file)
             print message
-
-        flag = False
+        
+        flag = False  
         while flag == False:
             print 'Please Insert the Default_alghoritm:\n'
             default_algorithm = str(raw_input())
             flag, message = self.validate_default_algorithm(default_algorithm)
             print message
-
+            
         flag = False
         while flag == False:
             print 'Please Insert the Dificult_level:\n'
             difficult_level = str(raw_input())
             flag, message = self.validate_difficult_level(difficult_level)
             print message
-
+        
         settings_dic = ["Output_file:"+output_file, "Default_alghoritm:"+default_algorithm, "Dificult_level:"+difficult_level]
-
+        
         save_setting = StorerSetting(path, settings_dic)
         save_setting.save_txt_config_file()
         return Menu().menu()
@@ -351,19 +355,19 @@ class SaveSetting:
             return True, ""
         else:
             return False, "The supported formats are: Txt or Csv, Please try again..."
-
+        
     def validate_default_algorithm(self, default):
         if default.lower() == "norvig" or default.lower() == "backtracking" or default.lower() == "brute force":
             return True, ""
         else:
             return False, "The supported algorithms are: Norvig or BackTracking and Brute Force, Please try again..."
-
+        
     def validate_difficult_level(self, difficult):
         if difficult.lower() == "easier" or difficult.lower() == "medium" or difficult.lower() == "difficult":
             return True, ""
         else:
             return False, "The supported algorithms are: Easier, Medium or Difficult Please try again..."
-
+        
 class Exit:
 
     def exit(self):

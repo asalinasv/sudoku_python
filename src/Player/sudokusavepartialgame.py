@@ -21,23 +21,25 @@ class GameSaver:
         fichero.close()
 
     def loadgame(self):
-        a = os.listdir('SavedSudokus')
+        a = os.listdir('../Player/SavedSudokus')
         print "Saved games: "
         for i in a:
             print i
         loadfile = raw_input('Please specify the game to be loaded:\n ')
         if os.path.isfile('SavedSudokus\\'+loadfile):
             loadfile = os.path.abspath('SavedSudokus\\'+loadfile)
-            print loadfile
-        try:
-            import cPickle as pickle
-        except ImportError:
-            import pickle
-        fichero = file(loadfile)
-        animales2 = pickle.load(fichero)
-        print animales2
-
-
+            try:
+                import cPickle as pickle
+            except ImportError:
+                import pickle
+            fichero = file(loadfile)
+            objeto = pickle.load(fichero)
+            print objeto[0]
+            return objeto[0]
+        else:
+            self.loadgame()
+        
+"""
 ash= \
         [1,1,3,1,2,0,6,0,0],\
         [0,9,0,3,0,5,0,0,1],\
@@ -52,3 +54,4 @@ ash= \
 game = GameSaver(ash)
 game.savegame()
 game.loadgame()
+"""

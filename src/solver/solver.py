@@ -5,7 +5,6 @@ import time
 from convert import *
 from norvigalgorithm import NorvigAlgorithm
 from sudokubacktrack import *
-from storer import Storer
 from Configuration.readconfiguration import *
 from display import *
 #import sys
@@ -24,22 +23,14 @@ class Solver(SudokuFileReader):
     def solvesudoku(self):
         print self.readconf.read_default_algorithm()
         if(self.readconf.read_default_algorithm() == 'Norvig'):
-            return self.solve_using_norvig_algorithm()
+           return self.solve_using_norvig_algorithm()
         if(self.readconf.read_default_algorithm() == 'Backtracking'):
             return self.solve_using_backtracking_algorithm()
         else:
             print "The algorithm specified in the configuration file is invalid\
                     \n Please set a valid algorithm"
-            return
-
-    def savesudoku(self,matrix):
-        extension = self.readconf.read_output_file()
-        extension = extension.lower()
-        name = raw_input("Please insert a name to store the resolved sudoku file\n")
-        store = Storer(matrix,name,extension)
-        store.save_matrix_to_file()
-        #return
-
+            return False
+        
     def solve_using_norvig_algorithm(self):
         """ Calls the norvigalgorithm class to solve the specified file """
         if(self.gettype()== "TXT File"):
