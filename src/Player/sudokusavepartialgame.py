@@ -13,7 +13,7 @@ class GameSaver:
             import cPickle as pickle
         except ImportError:
             import pickle
-        if not os.path.exists('SavedSudokus'):
+        if not os.path.exists('../Player/SavedSudokus'):
             os.makedirs('../Player/SavedSudokus')
         fichero = file("../Player/SavedSudokus\\"+strftime("%Y%m%d%H%M%S", gmtime())+".dat", "w")
         objetos = [gamesaved,score]

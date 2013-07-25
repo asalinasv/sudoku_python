@@ -188,7 +188,7 @@ class MenuPlay:
           print matrix_saved
           self.matrix_one = matrix_saved
 
-          return  #matrix_saved
+          return  matrix_saved
 
 
 class Exit:
