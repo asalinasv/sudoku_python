@@ -14,8 +14,8 @@ class GameSaver:
         except ImportError:
             import pickle
         if not os.path.exists('SavedSudokus'):
-            os.makedirs('SavedSudokus')
-        fichero = file("SavedSudokus\\"+strftime("%Y%m%d%H%M%S", gmtime())+".dat", "w")
+            os.makedirs('../Player/SavedSudokus')
+        fichero = file("../Player/SavedSudokus\\"+strftime("%Y%m%d%H%M%S", gmtime())+".dat", "w")
         objetos = [gamesaved,score]
         pickle.dump(objetos, fichero)
         fichero.close()
@@ -27,8 +27,8 @@ class GameSaver:
         for i in a:
             print i
         loadfile = raw_input('Please specify the game to be loaded:\n ')
-        if os.path.isfile('SavedSudokus\\'+loadfile):
-            loadfile = os.path.abspath('SavedSudokus\\'+loadfile)
+        if os.path.isfile('../Player/SavedSudokus\\'+loadfile):
+            loadfile = os.path.abspath('../Player/SavedSudokus\\'+loadfile)
             try:
                 import cPickle as pickle
             except ImportError:
@@ -38,6 +38,7 @@ class GameSaver:
             print objeto[0]
             return objeto[0]
         else:
+            print "porque no carga"
             self.loadgame()
         
 
