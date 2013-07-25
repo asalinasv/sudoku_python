@@ -21,6 +21,11 @@ from test_storer_class import TestStorerClassAndMethods
 from test_storesetting_class import TestStorerSettingClassAndMethods
 from test_readfile_class import TestFileReaderClassAndMethods
 
+from convert_tests import TestConvert
+from norvig_tests import TestNorvigAlgorithm
+from readfiles_tests import TestReadFiles
+from solver_tests import TestSolver
+
 
 if __name__ == '__main__':
     suite = unittest.TestSuite()
@@ -33,6 +38,14 @@ if __name__ == '__main__':
     suite.addTest(unittest.makeSuite(TestGeneratorClassAndMethods))
     suite.addTest(unittest.makeSuite(TestHintsDisplayerClassAndMethods))
     suite.addTest(unittest.makeSuite(TestStorerClassAndMethods))
+
+    suite.addTest(unittest.makeSuite(TestConvert))
+    suite.addTest(unittest.makeSuite(TestNorvigAlgorithm))
+    suite.addTest(unittest.makeSuite(TestReadFiles))
+    suite.addTest(unittest.makeSuite(TestSolver))
+    suite.addTest(unittest.makeSuite(TestSolver))
+
+
     
 
 

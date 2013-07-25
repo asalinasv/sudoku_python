@@ -39,7 +39,7 @@ class GameSaver:
         else:
             self.loadgame()
         
-"""
+
 ash= \
         [1,1,3,1,2,0,6,0,0],\
         [0,9,0,3,0,5,0,0,1],\
@@ -54,4 +54,3 @@ ash= \
 game = GameSaver(ash)
 game.savegame()
 game.loadgame()
-"""

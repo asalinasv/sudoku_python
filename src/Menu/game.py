@@ -15,7 +15,8 @@ from solver.readfiles import *
 from solver.convert import *
 
 from Player.playing_sudoku import *
-from Player.sudokusavepartialgame import *from Configuration.readconfiguration import FileReader
+from Player.sudokusavepartialgame import *
+from Configuration.readconfiguration import FileReader
 from solver.storer import *
 from Configuration.store_setting import StorerSetting
 from Configuration.configuration import Configuration
