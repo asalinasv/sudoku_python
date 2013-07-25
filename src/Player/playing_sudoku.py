@@ -144,7 +144,7 @@ class MenuPlay:
              self.matrix_one = self.open_saved_game()
              #MenuPlay(self.matrix_one)
              print "Go to OPEN a saved game --- need to be completed"
-             self.menu()
+             #self.menu()
 
           if option == "H" or option == "h":
              position = raw_input("Insert the column and row to receive the Hint (e.g. A1): ")
