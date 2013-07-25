@@ -25,7 +25,7 @@ class HintsDisplayer:
 
     def get_value_in_cell(self, position):
         if len(position) > 2:
-            print "Error"
+            return "Error"
         else:
             #cell = position.split(':')
             column = position[0]
