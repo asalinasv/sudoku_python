@@ -16,6 +16,7 @@ from solver.sudokubacktrack import *
 from solver.storer import *
 from solver.display import *
 from Player.sudokusavepartialgame import *
+#from Menu.game import *
 #from solver.sudokubacktrack import Block
 from Player.hint_displayer import *
 
@@ -105,9 +106,13 @@ class Game():
 
           return 0
 
-class Menu:
+class MenuPlay:
       def __init__(self, matrix):
+          matrix = tuple(matrix)
           self.matrix_one = matrix
+          print "the TYPE ISSSSSSSS in menu play"
+          print type(self.matrix_one)
+          print self.matrix_one
           self.game = Game(self.matrix_one)
           self.hint = HintsDisplayer(self.matrix_one)
           self.save = GameSaver(self.matrix_one)#Storer(self.matrix_one, "game_customer1", "txt")
@@ -119,32 +124,38 @@ class Menu:
           os.system('cls')
 ##          self.game.display_game(self)
           ##Game(self.matrix).display_game()
-          #self.game.display_game()
+          #self.game.display_game() other display
           SudokuDisplayer(self.matrix_one).displaysudoku()
           SudokuScorer(self.matrix_one).start()
           #self.game.display()
-          option = raw_input("\t  - Enter 'M' if you want to return to Menu\n\
-          - Enter 'S' if you want to Save the game\n\
+          option = raw_input("\
+          - Enter 'M' if you want to return to MenuPlay\n\
+          - Enter 'L' if you want to Open a saved game\n\
           - Enter 'H' if you want to play with HINTS\n\
+          - Enter 'S' if you want to Save the game\n\
           - Enter 'E' if you want to Exit the game\n\
           - Enter the position followed by colon and the value of square (e.g. C7:9): ")
 
           if option == "M" or option == "m":
              print "Go to Menu --- need to be completed"
-          if option == "S" or option == "s":
-             self.save_option()
-             print "Go to SAVE game --- need to be completed"
+             return
+
+          if option == "L" or option == "l":
+             self.matrix_one = self.open_saved_game()
+             #MenuPlay(self.matrix_one)
+             print "Go to OPEN a saved game --- need to be completed"
+             self.menu()
+
           if option == "H" or option == "h":
              position = raw_input("Insert the column and row to receive the Hint (e.g. A1): ")
              position = position + ":?"
-             print "the psition is %s" %position
-             retonr = self.game.validate_square(position)
-             print retonr
+##             print "the psition is %s" %position
+##             retonr = self.game.validate_square(position)
+##             print retonr
              if self.game.validate_square(position):
                 '''To verify that position entered is correct
 
                 '''
-                print "La position es correct THIS WILL BE SENT"
                 value_sug = self.hint.get_value_in_cell(position[0] + position[1])
                 self.game.fill_square(value_sug)
              else:
@@ -153,6 +164,9 @@ class Menu:
 
              print "Go to HINTS --- need to be completed"
 
+          if option == "S" or option == "s":
+             self.save_option()
+             print "Go to SAVE game --- need to be completed"
 
           if option == "E" or option == "e":
              Exit().exit()
@@ -166,7 +180,15 @@ class Menu:
       def save_option(self):
           self.save.matrix = self.matrix_one
           self.save.savegame()
+          return
 
+      def open_saved_game(self):
+          matrix_saved = self.save.loadgame()
+          print "SALIO deLCICLO"
+          print matrix_saved
+          self.matrix_one = matrix_saved
+
+          return  #matrix_saved
 
 
 class Exit:
@@ -176,24 +198,19 @@ class Exit:
         return
 
 
-##def main():
-##    pass
-##
-if __name__ == '__main__':
-    matrix= \
-    [0,0,3,0,2,0,6,0,0],\
-    [0,9,0,3,0,5,0,0,1],\
-    [0,0,1,8,0,6,4,0,0],\
-    [0,0,8,1,0,2,9,0,0],\
-    [7,0,0,0,0,0,0,0,8],\
-    [0,0,6,7,0,8,2,0,0],\
-    [0,0,2,6,0,9,5,0,0],\
-    [8,0,0,2,0,3,0,0,9],\
-    [0,0,5,0,1,0,3,0,0]
-    jugar = Menu(matrix)
-    jugar.menu()
-    #retorno = jugar.fill_square()
-##    while jugar.fill_square() != "exit":
-##          jugar.validate_square()
-##    print jugar.validate_square()
+##if __name__ == '__main__':
+##    matrix= \
+##    [0,0,3,0,2,0,6,0,0],\
+##    [0,9,0,3,0,5,0,0,1],\
+##    [0,0,1,8,0,6,4,0,0],\
+##    [0,0,8,1,0,2,9,0,0],\
+##    [7,0,0,0,0,0,0,0,8],\
+##    [0,0,6,7,0,8,2,0,0],\
+##    [0,0,2,6,0,9,5,0,0],\
+##    [8,0,0,2,0,3,0,0,9],\
+##    [0,0,5,0,1,0,3,0,0]
+##    jugar = MenuPlay(matrix)
+##    jugar.menu()
+
+
 
