@@ -29,8 +29,8 @@ class Storer:
             else:
                 f = open(self.sudoku_file +strftime("%Y%m%d%H%M%S", gmtime())+ "." + self.sudoku_extension, 'w')
                 f.write(self.return_cadena(self.sudoku_extension))
-                f.close
-                return "The file was created with the date at the of the file name ("+self.sudoku_file +strftime("%Y%m%d%H%M%S", gmtime())+ "." + self.sudoku_extension,+")"
+                f.close 
+                return "The file was created with the same name + datetime"
 
     def return_cadena(self, format_file):
         num_rows = len(self.matrix_sudoku)
