@@ -1,7 +1,7 @@
 import unittest
 from Player.sudokuscorer import *
 
-class TestSolver(unittest.TestCase):
+class TestScorer(unittest.TestCase):
     def setUp(self):
 
         

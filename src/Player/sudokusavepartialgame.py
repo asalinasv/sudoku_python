@@ -19,6 +19,7 @@ class GameSaver:
         objetos = [gamesaved,score]
         pickle.dump(objetos, fichero)
         fichero.close()
+        return True
 
     def loadgame(self):
         a = os.listdir('../Player/SavedSudokus')
@@ -51,6 +52,6 @@ ash= \
         [8,0,0,2,0,3,0,0,9],\
         [0,0,5,0,1,0,3,0,0]
 
-game = GameSaver(ash)
-game.savegame()
-game.loadgame()
+#game = GameSaver(ash)
+#game.savegame()
+#game.loadgame()

@@ -4,9 +4,9 @@ import os.path
 # Author: Ana Salinas# Automation Class (Sudoku project) - 2013
 import os
 import sys
-
-sys.path.append('./src/Configuration')
-sys.path.append('./src/Player/')
+sys.path.append('../')
+#sys.path.append('../src/Configuration')
+#sys.path.append('../src/Player/')
 from Player.generators import *
 from Player.generators import SudokuGenerator
 from solver.solver import Solver

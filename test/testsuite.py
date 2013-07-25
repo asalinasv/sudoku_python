@@ -25,6 +25,7 @@ from convert_tests import TestConvert
 from norvig_tests import TestNorvigAlgorithm
 from readfiles_tests import TestReadFiles
 from solver_tests import TestSolver
+from scorer_tests import TestScorer
 
 
 if __name__ == '__main__':
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     suite.addTest(unittest.makeSuite(TestNorvigAlgorithm))
     suite.addTest(unittest.makeSuite(TestReadFiles))
     suite.addTest(unittest.makeSuite(TestSolver))
-    suite.addTest(unittest.makeSuite(TestSolver))
+    suite.addTest(unittest.makeSuite(TestScorer))
 
 
     
