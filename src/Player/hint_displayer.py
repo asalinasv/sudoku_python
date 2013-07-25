@@ -1,6 +1,6 @@
 '''
 Created on Jul 22, 2013
-
+Class to get the right number to resolve a sudoku
 @author: Ana Salinas
 '''
 import copy
@@ -17,12 +17,14 @@ class HintsDisplayer:
         '''
         matrix_copy=copy.deepcopy(matrix)
         self.original_matrix = matrix_copy
+
         self.solve_matrix = Solver(file)
-        self.resolved_matrix_backtracking = self.solve_matrix.solve_sudoku_game_backtracking(self.original_matrix)
+        matrix_aux = self.get_int_matrix(matrix)
+        self.resolved_matrix_backtracking = self.solve_matrix.solve_sudoku_game_backtracking(matrix_aux)
         self.resolved_matrix = self.solve_matrix.solve_sudoku_game_norvig(self.original_matrix)
 
     def get_value_in_cell(self, position):
-        if len(position) > 3:
+        if len(position) > 2:
             print "Error"
         else:
             #cell = position.split(':')
@@ -36,27 +38,13 @@ class HintsDisplayer:
             if self.columns[i] == col.upper():
                 return i
 
-    def display_all_hints(self, matrix):
-        pass
-
-    def print_matrix(self, ma):
+    def get_int_matrix(self, str_matrix):
+        backtrack_matrix = []
         for i in range(9):
-           print ma[i]
+            backtrack_matrix.append([0]*9)
 
+        for k in range(9):
+            for l in range(9):
+                backtrack_matrix[k][l] = int(str_matrix[k][l])
 
-    """
-    print "To get a hint you should type 'Hint' to get a hint at that position"
-    value = raw_input()
-
-    while value.lower() == "hint":
-        print "Select the position to get hint, for example 'A:2'"
-        position = raw_input()
-        num_cell = var.get_value_in_cell(position)
-
-        if num_cell == "Error":
-            print "Select the position to get hint, for example 'A:2'"
-            position = int(raw_input())
-        print num_cell
-        hint = "any"
-    """
-
+        return backtrack_matrix
