@@ -2,7 +2,7 @@
 # Author: Ana Salinas
 # Automation Class (Sudoku project) - 2013
 import unittest
-from readconfiguration import FileReader
+from Configuration.readconfiguration import FileReader
 
 class TestFileReaderClassAndMethods(unittest.TestCase):
 
@@ -14,7 +14,9 @@ class TestFileReaderClassAndMethods(unittest.TestCase):
         self.read_file02 = FileReader("anything.xls")
         self.out_put_file_not_exist = ''
         self.file_empty = " "
-        self.right_format = "['Output_file:Txt']['Default_alghoritm:Backtracking']['Dificult_level:Easier']"
+        self.right_format = ['Output_file:Txt\n','Default_alghoritm:Backtracking\n','Dificult_level:Easier\n']
+                            
+        
      
     def test_verify_config_file_exist(self):
         exist_file = self.read_file.file_exist()
@@ -42,15 +44,25 @@ class TestFileReaderClassAndMethods(unittest.TestCase):
     def test_that_a_no_defined_extension_file_is_not_taken_into_account(self):
         self.assertFalse(self.read_file02.right_configuration_extension())
 
-    def test_that_config_file_has_the_right_info_according_to_defiened_format(self):
+    def test_that_config_file_has_the_right_info_according_to_defined_format(self):
         read0=self.read_file.right_contain_of_the_ini_file()
-        self.assertEqual(read0,self.right_format)
+        self.assertEqual(read0, self.right_format)
 
     def test_an_error_is_raised_when_there_is_not_file(self):
         read01=self.read_file01.file_exist()
         self.failureException(read01)
-
     
+    def test_the_right_output_file_value_is_retrived(self):
+        value = self.read_file.read_output_file()
+        self.assertEqual("txt", value.lower())
+    
+    def test_that_right_difficult_level_is_retrived(self):
+        value = self.read_file.read_dificult_level()
+        self.assertEqual("easier", value.lower())
+    
+    def test_that_right_default_algrithm_is_retrived(self):
+        value = self.read_file.read_default_algorithm()
+        self.assertEqual("backtracking", value.lower())
 
 
 if __name__ == '__main__':

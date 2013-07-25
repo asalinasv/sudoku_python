@@ -2,8 +2,11 @@
 # Author: Ana Salinas
 # Automation Class (Sudoku project) - 2013
 import unittest
+import os
+import sys
+sys.path.append('../src/solver')
 
-from storer import Storer
+from solver.storer import Storer
 
 class TestStorerClassAndMethods(unittest.TestCase):
 
@@ -29,9 +32,9 @@ class TestStorerClassAndMethods(unittest.TestCase):
         self.store02.save_matrix_to_file()
         self.assertTrue(self.file_exist(self.store02.sudoku_file,self.store02.sudoku_extension))
     
-    def test_if_the_file_already_exist_an_alert_is_displayed(self):
+    def test_if_the_file_already_exist_it_is_renamed(self):
         error = self.store02.save_matrix_to_file()
-        self.assertEqual("File already exist", error)
+        self.assertEqual("The file was created with the same name + datetime", error)
 
     def file_exist(self, f_name, extension_file):
         """
