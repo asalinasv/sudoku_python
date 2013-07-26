@@ -9,16 +9,13 @@
 import os
 import sys
 import copy
+import time
 sys.path.append('../')
-#from sys import path
-##path.append("../src/solver/")
 sys.path.append('../../src')
 from solver.sudokubacktrack import *
 from solver.storer import *
 from solver.display import *
 from Player.sudokusavepartialgame import *
-#from Menu.game import *
-#from solver.sudokubacktrack import Block
 from Player.hint_displayer import *
 
 class Game():
@@ -44,6 +41,9 @@ class Game():
           return 0
 
       def validate_square(self, square):
+          ''' verify that value entered will be correct
+
+          '''
           if len(square) == 4:
 
               try:
@@ -111,25 +111,19 @@ class MenuPlay:
       def __init__(self, matrix):
           matrix = tuple(matrix)
           self.matrix_one = matrix
-          print "the TYPE ISSSSSSSS in menu play"
-          print type(self.matrix_one)
-          print self.matrix_one
           self.game = Game(self.matrix_one)
           self.hint = HintsDisplayer(self.matrix_one)
-          self.save = GameSaver(self.matrix_one)#Storer(self.matrix_one, "game_customer1", "txt")
-          #self.game = SudokuDisplayer(self.matrix)
+          self.save = GameSaver(self.matrix_one)
+
       def menu(self):
           self.game = Game(self.matrix_one)
           value = 0
           value_sug = 0
           position = ""
           os.system('cls')
-##          self.game.display_game(self)
-          ##Game(self.matrix).display_game()
-          #self.game.display_game() other display
+
           SudokuDisplayer(self.matrix_one).displaysudoku()
           SudokuScorer(self.matrix_one).start()
-          #self.game.display()
           option = raw_input("\
           - Enter 'M' if you want to return to MenuPlay\n\
           - Enter 'L' if you want to Open a saved game\n\
@@ -144,38 +138,40 @@ class MenuPlay:
 
           if option == "L" or option == "l":
              self.matrix_one = self.open_saved_game()
-             #MenuPlay(self.matrix_one)
              print "Go to OPEN a saved game --- need to be completed"
-             #self.menu()
 
           if option == "H" or option == "h":
+             '''Option to use Hints
+             '''
              position = raw_input("Insert the column and row to receive the Hint (e.g. A1): ")
              position = position + ":?"
-##             print "the psition is %s" %position
-##             retonr = self.game.validate_square(position)
-##             print retonr
+
              if self.game.validate_square(position):
                 '''To verify that position entered is correct
 
                 '''
                 value_sug = self.hint.get_value_in_cell(position[0] + position[1])
                 self.game.fill_square(value_sug)
-             else:
-                  print "the value is INCORRECT"
-                  print self.hint.get_value_in_cell("A1")
 
-             print "Go to HINTS --- need to be completed"
 
           if option == "S" or option == "s":
+             '''Option to save
+
+             '''
              self.save_option()
-             print "Go to SAVE game --- need to be completed"
 
           if option == "E" or option == "e":
+             '''Option to Exit
+
+             '''
              Exit().exit()
           else:
             value = self.game.validate_square(option)
             if value != False:
                self.game.fill_square(value)
+            elif value == False:
+                 print "please try again"
+                 time.sleep(1.0)
             self.menu()
           return
 
@@ -186,10 +182,7 @@ class MenuPlay:
 
       def open_saved_game(self):
           matrix_saved = self.save.loadgame()
-          print "SALIO deLCICLO"
-          print matrix_saved
           self.matrix_one = matrix_saved
-
           return  matrix_saved
 
 
