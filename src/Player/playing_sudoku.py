@@ -169,9 +169,9 @@ class MenuPlay:
             value = self.game.validate_square(option)
             if value != False:
                self.game.fill_square(value)
-            elif value == False:
-                 print "please try again"
-                 time.sleep(1.0)
+            #elif value == False:
+                 #print "please try again"
+                 #time.sleep(1.0)
             self.menu()
           return
 
@@ -182,8 +182,11 @@ class MenuPlay:
 
       def open_saved_game(self):
           matrix_saved = self.save.loadgame()
-          self.matrix_one = matrix_saved
-          return  matrix_saved
+          if matrix_saved == None:
+              return self.matrix_one
+          else:
+            self.matrix_one = matrix_saved
+            return matrix_saved
 
 
 class Exit:

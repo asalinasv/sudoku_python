@@ -31,21 +31,23 @@ class GameSaver:
     def loadgame(self):
         """Loads a game from SavedSudokus folder"""
         if not os.path.exists('../Player/SavedSudokus'):
-            os.makedirs('../Player/SavedSudokus')
-        a = os.listdir('../Player/SavedSudokus')
-        print "Saved games: "
-        for i in a:
-            print i
-        loadfile = raw_input('Please specify the game to be loaded:\n ')
-        if os.path.isfile('../Player/SavedSudokus\\'+loadfile):
-            loadfile = os.path.abspath('../Player/SavedSudokus\\'+loadfile)
-            try:
-                import cPickle as pickle
-            except ImportError:
-                import pickle
-            fichero = file(loadfile)
-            objeto = pickle.load(fichero)
-            return objeto[0]
+            print "There are not saved sudokus"
+            return
         else:
-            print "Please try again with a saved game"
-            self.loadgame()
+            a = os.listdir('../Player/SavedSudokus')
+            print "Saved games: "
+            for i in a:
+                print i
+            loadfile = raw_input('Please specify the game to be loaded:\n ')
+            if os.path.isfile('../Player/SavedSudokus\\'+loadfile):
+                loadfile = os.path.abspath('../Player/SavedSudokus\\'+loadfile)
+                try:
+                    import cPickle as pickle
+                except ImportError:
+                    import pickle
+                fichero = file(loadfile)
+                objeto = pickle.load(fichero)
+                return objeto[0]
+            else:
+                print "Please try again with a saved game"
+                self.loadgame()
