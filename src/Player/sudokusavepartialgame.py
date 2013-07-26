@@ -1,6 +1,9 @@
 from sudokuscorer import *
 import os
 from time import gmtime, strftime
+import time
+import sys
+sys.path.append('../')
 
 class GameSaver:
     def __init__(self,matrix):
@@ -19,6 +22,9 @@ class GameSaver:
         objetos = [gamesaved,score]
         pickle.dump(objetos, fichero)
         fichero.close()
+        os.system('cls')
+        print "\nThe game was sucessfully saved"
+        time.sleep(3.0)
         return True
 
     def loadgame(self):

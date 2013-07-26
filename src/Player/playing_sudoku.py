@@ -9,6 +9,7 @@
 import os
 import sys
 import copy
+sys.path.append('../')
 #from sys import path
 ##path.append("../src/solver/")
 sys.path.append('../../src')
@@ -118,6 +119,7 @@ class MenuPlay:
           self.save = GameSaver(self.matrix_one)#Storer(self.matrix_one, "game_customer1", "txt")
           #self.game = SudokuDisplayer(self.matrix)
       def menu(self):
+          self.game = Game(self.matrix_one)
           value = 0
           value_sug = 0
           position = ""
