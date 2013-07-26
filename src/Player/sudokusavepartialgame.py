@@ -30,6 +30,8 @@ class GameSaver:
 
     def loadgame(self):
         """Loads a game from SavedSudokus folder"""
+        if not os.path.exists('../Player/SavedSudokus'):
+            os.makedirs('../Player/SavedSudokus')
         a = os.listdir('../Player/SavedSudokus')
         print "Saved games: "
         for i in a:
