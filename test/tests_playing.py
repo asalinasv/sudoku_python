@@ -12,23 +12,14 @@ import sys
 sys.path.append('../src')
 from solver.sudokubacktrack import *
 from Player.playing_sudoku import Game
-from Player.playing_sudoku import Menu
+from Player.playing_sudoku import MenuPlay
 
 
 class TestPlaying(unittest.TestCase):
 
     def setUp(self):
 
-        # self.default_matrx= \
-        # [4,1,7,3,2,6,8,9,5], \
-        # [2,3,5,1,9,8,6,4,7], \
-        # [6,8,9,7,5,4,3,1,2], \
-        # [7,2,8,9,4,5,1,6,3], \
-        # [0,0,0,0,8,0,4,0,0], \
-        # [0,0,0,0,1,0,0,0,0], \
-        # [0,0,0,6,0,3,0,7,0], \
-        # [5,0,0,2,0,0,0,0,0], \
-        # [1,0,4,0,0,0,0,0,0]
+
 
         self.default_matrx= \
         [4,0,0,0,0,0,8,0,5], \
@@ -111,14 +102,8 @@ class TestPlaying(unittest.TestCase):
         self.game = Game(self.first_matrx)
         self.algorithm = Backtracking(self.first_matrx, 9)
         self.block = Block()
-        self.menu = Menu(self.first_matrx)
+        self.menu = MenuPlay(self.first_matrx)
 
-
-    ##############################
-#start HERE
-#def test_fill_square
-#def test_validate_square
-# def test_validate_correct letters (row and column)
 
     def test_validate_square(self):
         '''Verify that a position id validated
@@ -220,23 +205,6 @@ class TestPlaying(unittest.TestCase):
         result = self.game.validate_square(value_entered)
         self.assertEqual(False, result)
 
-##    def test_verify_if_exit_option_work(self):  ojo need to improve how to enter automaticall a raw_inputinput
-##        self.game.fill_square = "exit"
-##        result = self.game.fill_square()
-##        self.assertEqual(Exit, result)
-
-##    def test_validate_print_matrix(self):
-##        result = self.game.display_game()
-##        #self.assertEqual(True, result)
-##
-##    def test_validate_menu_displaying(self):
-##        #display menu
-##        result = self.menu.menu()
-##        #self.assertEqual(True, result)
-
-##    def test_validate_block(self):
-##        result = self.matrix.validate_square()
-##        self.assertEqual(self.first_result, result)
 
 if __name__ == '__main__':
     unittest.main()
