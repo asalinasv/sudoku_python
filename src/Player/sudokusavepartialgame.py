@@ -10,6 +10,7 @@ class GameSaver:
         self.matrix = matrix
 
     def savegame(self):
+        """Saves the game in the SavedSudokus folder"""
         gamesaved = self.matrix
         score = SudokuScorer(self.matrix).start()
         try:
@@ -28,6 +29,7 @@ class GameSaver:
         return True
 
     def loadgame(self):
+        """Loads a game from SavedSudokus folder"""
         a = os.listdir('../Player/SavedSudokus')
         print "Saved games: "
         for i in a:
@@ -41,24 +43,7 @@ class GameSaver:
                 import pickle
             fichero = file(loadfile)
             objeto = pickle.load(fichero)
-            print objeto[0]
             return objeto[0]
         else:
-            print "porque no carga"
+            print "Please try again with a saved game"
             self.loadgame()
-        
-
-ash= \
-        [1,1,3,1,2,0,6,0,0],\
-        [0,9,0,3,0,5,0,0,1],\
-        [0,0,1,8,0,6,4,0,0],\
-        [0,0,8,1,0,2,9,0,0],\
-        [7,0,0,0,0,0,0,0,8],\
-        [0,0,6,7,0,8,2,0,0],\
-        [0,0,2,6,0,9,5,0,0],\
-        [8,0,0,2,0,3,0,0,9],\
-        [0,0,5,0,1,0,3,0,0]
-
-#game = GameSaver(ash)
-#game.savegame()
-#game.loadgame()

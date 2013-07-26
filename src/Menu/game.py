@@ -153,9 +153,9 @@ class CmdResolver:
                 time.sleep(3.0)
                 self.resolvefromcmd()
             else:
-                raw_input('Press any key to insert other string')
-                return self.resolvefromcmd()
-
+                matrixcmd = cmd.solve_from_commandline()
+                return SudokuDisplayer().savesudoku(matrixcmd)
+                
 class SudokuGeneratorGame:
     '''
     Created on Jul 22, 2013

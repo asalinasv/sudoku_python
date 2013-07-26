@@ -46,7 +46,7 @@ class TestSolver(unittest.TestCase):
         self.assertEqual(expected,self.solver_csv.solve_using_norvig_algorithm())
 
     def test_if_solver_handle_invalid_CSV_file_using_norvig_algorithm(self):
-        expected = "Please insert the correct data and size in the csv file"
+        expected = False
         self.assertEqual(expected,self.solver_invalidcsv.solve_using_norvig_algorithm())
 
     def test_if_solver_returns_a_friendly_message_when_invalid_file_is_inserted(self):
@@ -58,7 +58,7 @@ class TestSolver(unittest.TestCase):
         self.assertEqual(expected,self.solver_txt.solve_using_backtracking_algorithm())
 
     def test_if_solver_handle_invalid_TXT_file_using_backtracking_algorithm(self):
-        expected = 'Please insert the correct data and size in the txt file'
+        expected = False
         self.assertEqual(expected,self.solver_invalidtxt.solve_using_backtracking_algorithm())
 
     def test_if_solver_resolves_a_sudoku_from_a_CSV_file_using_backtracking_algorithm(self):
@@ -66,7 +66,7 @@ class TestSolver(unittest.TestCase):
         self.assertEqual(expected,self.solver_csv.solve_using_backtracking_algorithm())
 
     def test_if_solver_handle_invalid_CSV_file_using_backtracking_algorithm(self):
-        expected = "Please insert the correct data and size in the csv file"
+        expected = False
         self.assertEqual(expected,self.solver_invalidcsv.solve_using_backtracking_algorithm())
 
     def test_if_solver_returns_a_friendly_message_when_invalid_file_is_inserted_backtracking(self):

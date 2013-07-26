@@ -137,33 +137,3 @@ class GeneralConverter:
     def cross(self, A, B):
         "Cross product of elements in A and elements in B."
         return [a+b for a in A for b in B]
-
-    #def matrixreader(self,matrix,i,j):
-    #    for i in matrix:
-    #        for j in i:
-         #       print type(j)
-    #            return j
-
-            #dicti[x] = x
-        #print ordered
-
-        #print dictionary
-        #print ordered
-        #print dictionary.values()
-
-#default_matrx= \
-#        [[0, 0, 3, 0, 2, 0, 6, 0, 0],
-#                    [9, 0, 0, 3, 0, 5, 0, 0, 1], \
-#                    [0, 0, 1, 8, 0, 6, 4, 0, 0], \
-#                    [0, 0, 8, 1, 0, 2, 9, 0, 0], \
-#                    [7, 0, 0, 0, 0, 0, 0, 0, 8], \
-#                    [0, 0, 6, 7, 0, 8, 2, 0, 0], \
-#                    [0, 0, 2, 6, 0, 9, 5, 0, 0], \
-#                    [8, 0, 0, 2, 0, 3, 0, 0, 9], \
-#                    [0, 0, 5, 0, 1, 0, 3, 0, 0]]
-#con = GeneralConverter()
-#a = con.convert_txt_file_to_matrix('../Menu/EmptySudokus/juego.txt')
-#print a
-#a = con.convert_matrix_to_dict(default_matrx)
-#a = con.convert_string_to_matrix_int('483921657967345821251876493548132976729564138136798245372689514814253769695417382')
-#print a

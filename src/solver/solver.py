@@ -1,15 +1,13 @@
 # Solver class, read inputs for sudoku from csv and txt
 # Author: Oscar Walker Tapia Merida - oscar.tapia@jalasoft.com
 # Automation Class (Sudoku project) - 2013
+
 import time
 from convert import *
 from norvigalgorithm import NorvigAlgorithm
 from sudokubacktrack import *
 from Configuration.readconfiguration import *
 from display import *
-#import sys
-#sys.path.append('./src/Configuration')
-
 
 class Solver(SudokuFileReader):
     def __init__(self,file):
@@ -19,8 +17,8 @@ class Solver(SudokuFileReader):
         absolutepath = os.path.abspath("../Configuration/config.ini")
         self.readconf = FileReader(absolutepath)
 
-
     def solvesudoku(self):
+        """Solves the Sudoku based in the configuration file settings"""
         print self.readconf.read_default_algorithm()
         if(self.readconf.read_default_algorithm() == 'Norvig'):
            return self.solve_using_norvig_algorithm()
@@ -45,20 +43,19 @@ class Solver(SudokuFileReader):
             if(self.validate_size_csv()==81 and self.validate_values_csv()):
                 a = self.convert.convert_csv_file_to_string(self.file)
             else:
-                print "Please insert the correct data and size in the csv file"
-                return "Please insert the correct data and size in the csv file"
+                print "\n\nPlease insert the correct data and size in the "+self.file+" file\
+                        \n  Or specify another file"
+                time.sleep(7.0)
+                return False
         if(self.gettype()== "invalid extension"):
             print "Please insert a valid dimension"
             return "invalid extension"
         resdict = self.norvigalg.solve(a)
         print "Sudoku has been resolved successfully\n\n"
         print "Sudoku solved using Norvig Algorithm\n\n"
-        #self.norvigalg.display(resdict)
         resstring = self.convert.convert_dictionary_to_string(resdict)
-        #return resstring
         matrix = self.convert.convert_string_to_matrix(resstring)
         SudokuDisplayer(matrix).displaysudoku()
-        #self.savesudoku(matrix)
         return matrix
 
     def solve_using_backtracking_algorithm(self):
@@ -67,15 +64,19 @@ class Solver(SudokuFileReader):
             if(self.validate_size_txt()==81 and self.validate_values_txt()):
                 a = self.convert.convert_txt_file_to_matrix(self.file)
             else:
-                print "Please insert the correct data and size in the txt file"
-                return "Please insert the correct data and size in the txt file"
+                print "\n\nPlease insert the correct data and size in the "+self.file+" file\
+                        \n  Or specify another file"
+                time.sleep(7.0)
+                return False
         if(self.gettype()== "CSV File"):
             if(self.validate_size_csv()==81 and self.validate_values_csv()):
                 b = self.convert.convert_csv_file_to_string(self.file)
                 a = self.convert.convert_string_to_matrix_int(b)
             else:
-                print "Please insert the correct data and size in the csv file"
-                return "Please insert the correct data and size in the csv file"
+                print "\n\nPlease insert the correct data and size in the "+self.file+" file\
+                        \n  Or specify another file"
+                time.sleep(7.0)
+                return False
         if(self.gettype()== "invalid extension"):
             print "Please insert a valid dimension"
             return "invalid extension"
@@ -83,12 +84,9 @@ class Solver(SudokuFileReader):
         resmatrix = sudokubacktrack.solve_backtracking(a)
         print "Sudoku has been resolved successfully\n\n"
         print "Sudoku solved using Backtracking Algorithm\n\n"
-        #sudokubacktrack.displaypre()
-        #print resmatrix
         a = self.convert.convert_matrix_to_string(resmatrix)
         matrixstr = self.convert.convert_string_to_matrix(a)
         SudokuDisplayer(matrixstr).displaysudoku()
-        #self.savesudoku(matrixstr)
         return matrixstr
 
     def solve_sudoku_game_backtracking(self, matrix):

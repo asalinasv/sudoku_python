@@ -3,6 +3,7 @@
 # Automation Class (Sudoku project) - 2013
 
 class NorvigAlgorithm:
+
     def __init__(self):
         self.digits   = '123456789'
         self.rows     = 'ABCDEFGHI'
@@ -16,10 +17,6 @@ class NorvigAlgorithm:
 
         self.peers = dict((s, set(sum(self.units[s],[]))-set([s]))
                      for s in self.squares)
-        #print type(self.unitlist)
-        #print type(self.squares)
-        #print self.squares
-        #print self.peers
 
     def getsquares(self):
         """ Returns the matrix for the constructed squares """
@@ -113,23 +110,7 @@ class NorvigAlgorithm:
                 if not self.assign(values, dplaces[0], d):
                     return False
         return values
-    """
-    def display(self,values):
-        "Display these values as a 2-D grid."
-        if values==False:
-            print "Norvig algorithm is receiving an input different of 81 characters"
-            return False
-        else:
-            width = 1+max(len(values[s]) for s in self.squares)
-            line = '+'.join(['-'*(width*3)]*3)
-            for r in self.rows:
-                print ''.join(values[r+c].center(width)+('|' if c in '36' else '')
-                              for c in self.cols)
-                if r in 'CF':
-                    print line
-            print
-            return True
-    """
+   
     ################ Search ################
 
     def solve(self,grid):
@@ -145,16 +126,10 @@ class NorvigAlgorithm:
         n,s = min((len(values[s]), s) for s in self.squares if len(values[s]) > 1)
         return self.some(self.search(self.assign(values.copy(), s, d)) \
                         for d in values[s])
+
     def some(self,seq):
         "Return some element of seq that is true."
         for e in seq:
             if e:
                 return e
         return False
-
-#nor = NorvigAlgorithm()
-#a = nor.solve('4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......')
-#print a
-#from convert import *
-#b = GeneralConverter().convert_dictionary_to_string(a)
-#print b

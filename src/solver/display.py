@@ -8,6 +8,7 @@ class SudokuDisplayer:
         self.conv = GeneralConverter()
 
     def displaysudoku(self):
+        """display the sudoku on screen"""
         self.digits   = '123456789'
         self.rows     = 'ABCDEFGHI'
         self.cols     = self.digits
@@ -20,7 +21,7 @@ class SudokuDisplayer:
         return [a+b for a in A for b in B]
 
     def display(self,values):
-        "Display these values as a 2-D grid."
+        "Display the values in a grid"
         row_number = 0
         if values==False:
             print "Norvig algorithm is receiving an input different of 81 characters"
@@ -38,4 +39,3 @@ class SudokuDisplayer:
                     print '\t' + line
             print
             return True
-

@@ -41,7 +41,7 @@ class TestReadFiles(unittest.TestCase):
         self.assertEqual(expected,self.readvalidtxt.validate_size_txt())
 
     def test_if_alert_message_is_displayed_for_non_valid_dimentions_in_txt_file(self):
-        expected = "The dimensions inserted are invalid"
+        expected = False
         self.assertEqual(expected,self.readinvalidtxt.validate_size_txt())
 
     def test_if_txt_has_values_from_0_to_9(self):
@@ -62,7 +62,7 @@ class TestReadFiles(unittest.TestCase):
         self.assertEqual(expected,self.readvalidcsv.validate_size_csv())
 
     def test_if_alert_message_is_displayed_for_non_valid_dimentions_in_csv_file(self):
-        expected = "The dimensions inserted are invalid"
+        expected = False
         self.assertEqual(expected,self.readinvalidcsv.validate_size_csv())
 
     def test_if_csv_has_values_from_0_to_9(self):
@@ -70,7 +70,7 @@ class TestReadFiles(unittest.TestCase):
         self.assertEqual(expected,self.readvalidcsv.validate_values_csv())
 
     def test_if_alert_message_is_displayed_for_non_valid_values_in_csv_file(self):
-        expected = "The values from csv files are invalid"
+        expected = False
         self.assertEqual(expected,self.readinvalidcsv.validate_values_csv())
 
 if __name__ == '__main__':

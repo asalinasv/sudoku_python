@@ -1,10 +1,10 @@
 class SudokuScorer:
 
-
     def __init__(self,matrix):
         self.matrix = matrix
 
     def start(self):
+        """Returns the scorer"""
         print "Your actual score is:"
         count = 0
         for i in self.matrix:
@@ -14,6 +14,7 @@ class SudokuScorer:
         return self.scorer(count)
 
     def scorer(self,count):
+        """Construct the score"""
         if(count==0):
             res = 500
             print "500"

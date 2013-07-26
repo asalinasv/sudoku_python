@@ -2,7 +2,7 @@ from Player.sudokusavepartialgame import *
 import unittest
 from solver.norvigalgorithm import *
 
-class TestNorvigAlgorithm(unittest.TestCase):
+class TestGameSaver(unittest.TestCase):
     def setUp(self):
         self.matrix= \
         [1,1,3,1,2,0,6,0,0],\
