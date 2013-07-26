@@ -32,6 +32,21 @@ class Storer:
                 f.close 
                 return "The file was created with the same name + datetime"
 
+    #Adding a method to stored generated sudoku at specified path
+    def save_matrix_to_file_specific_path(self, path):
+        if self.sudoku_extension != '':
+            if self.file_already_exist() == False:
+                f = open(path+self.sudoku_file + "." + self.sudoku_extension, 'w')
+                f.write(self.return_cadena(self.sudoku_extension))
+                f.close
+                return "The file was created"
+            else:
+                f = open(path+self.sudoku_file +strftime("%Y%m%d%H%M%S", gmtime())+ "." + self.sudoku_extension, 'w')
+                f.write(self.return_cadena(self.sudoku_extension))
+                f.close 
+                return "The file was created with the same name + datetime"
+
+    
     def return_cadena(self, format_file):
         num_rows = len(self.matrix_sudoku)
         sudoku_string = ''
