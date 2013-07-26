@@ -189,7 +189,7 @@ class SudokuGeneratorGame:
             print "Type the name of the file to store a sudoku game"
             file_name = raw_input()
             store_sudoku = Storer(matrix,file_name,"txt")
-            store_sudoku.save_matrix_to_file()
+            store_sudoku.save_matrix_to_file_specific_path("EmptySudokus/")
 
             return Menu().menu()
         elif value.lower() == "play":
